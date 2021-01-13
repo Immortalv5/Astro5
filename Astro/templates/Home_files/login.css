@@ -1,0 +1,90 @@
+:root{
+--bgcolor: #fd9644;
+--sidecolor: #fa8231;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  padding-top: 3rem;
+}
+
+.modal-content {
+  background-color: var(--bgcolor);
+  margin: 5rem auto;
+  width: 35%;
+  border-radius: 1rem;
+}
+
+.modal-content input{
+  padding-bottom: 0.4rem;
+  margin-bottom: 1rem;
+  border: none;
+  outline:none;
+  border-bottom: 1px solid rgba(255,255,255, 0);
+  background-color: rgba(255,255,255, 0.05);
+  transition: border-bottom 0.3s ease-in-out;
+}
+
+.modal-content input:hover{
+  background-color: rgba(255,255,255, 0);
+  border-bottom: 1px solid rgba(255,255,255, 0.75);
+}
+
+.modal-content input:focus{
+  background-color: rgba(255,255,255,0);
+  border-bottom: 1px solid rgba(255,255,255, 0.75);
+}
+
+.modal-content button{
+  bottom: 0;
+  right: 0;
+  border:none;
+  border-bottom: 2px solid var(--bgcolor);
+  outline:none;
+  padding:6px;
+  transition: border-radius 0.4s;
+}
+
+.modal-content button:hover{
+  border-radius: 2rem;
+}
+
+.modal-content button:focus{
+  border-bottom: 2px solid var(--bgcolor);
+  border: none;
+}
+
+.close {
+  position: absolute;
+  padding: 1rem;
+  right: 4px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  cursor: pointer;
+}
+
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)}
+  to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+  from {transform: scale(0)}
+  to {transform: scale(1)}
+}

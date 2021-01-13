@@ -1,0 +1,137 @@
+{% load static %}
+
+<html>
+  <head><title>Home</title><html><head><meta charset="utf-8"/><link rel="stylesheet" href="{% static 'css/astrology.css' %}"/><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/><link rel="stylesheet" href="{% static 'css/index.css'%}"/><link rel="stylesheet" href="{% static 'css/login.css'%}"/>
+  <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
+  <script>function setCookie(cname, cvalue, exdays) {
+    var date = new Date();
+    date.setTime(date.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ date.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    console.log(document.cookie);
+  }
+  function openMenu(){
+    document.querySelector(".menu").style.width = "250px";
+    document.querySelector(".menu").style.visibility = "visible";
+    document.querySelector('.move').style.left = "250px";
+    document.querySelector('.leftmove').style.right = "250px";
+  }
+  function closeMenu(){
+  document.querySelector(".menu").style.width = "0px";
+  document.querySelector(".menu").style.visibility = "hidden";
+  document.querySelector('.move').style.left = "0px";
+  document.querySelector('.leftmove').style.right = "0px";
+  }
+  function login(){
+    document.getElementById('appear2').style.display='block';
+    document.getElementById('appear').style.display='none';
+  }
+  function register(){
+    document.getElementById('appear').style.display='block';
+    document.getElementById('appear2').style.display='none';
+  }
+  </script>
+</head>
+<body>
+  <nav class="navbar masthead nav-masthead bgg text-light move">
+    <div class="d-flex justify-content-start">
+      <a class="fa fa-bars text-light m-auto" id="open_menu"></a>
+      <a class="mb-3 title display-4">Astrogeeks</a>
+    </div>
+    <div class="d-flex justify-content-end leftmove">
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link mr-5" href="/book">Book</a>
+      <a class="nav-link mr-5" onclick="document.getElementById(&quot;appear&quot;).style.display = &quot;block&quot;">Login</a>
+    </div>
+  </nav>
+  <div class="modal text-light" id="appear">
+    <div class="modal-content animate">
+      <span class="close" onclick="document.getElementById('appear').style.display='none'">&times;</span>
+      <h2 style="text-align:center; padding: 1.5rem;">Login</h2>
+          <form action="" method="POST">
+            <div class="card-body" style="text-align:right; padding-left: 2rem;">
+              {% csrf_token %}
+              <div>
+                <input type="text" name="login_user" autocomplete="off"/>
+              </div>
+              <div>
+                <input type="text" name="login_pass" autocomplete="off"/>
+              </div>
+              <div>
+                {% for message in messages %}
+                  <p> {{message}} </p>
+                {% endfor %}
+              </div>
+              <div>
+                <a class="p-2 mt-4 btn-dark bg-dark" onclick="login()">Register</a>
+                <button class="p-2 mt-4 bg-light" name = 'submit' value = 'login'>Login</button>
+              </div>
+            </div>
+          </form>
+    </div>
+  </div>
+  <div class="modal text-light" id="appear2">
+    <div class="modal-content animate">
+      <span class="close" onclick="document.getElementById('appear2').style.display='none'">&times;</span>
+      <h2 style="text-align:center; padding: 1.5rem;">Register</h2>
+        <div class="part col-6 card-body" style="border-left: 1px solid #999;">
+          <form action="" method="POST">
+            <div class="card-body" style="text-align:center; padding-right: 2rem;">
+              {% csrf_token %}
+              <div>
+                {{form.username}}
+              </div>
+              <div>
+                {{form.email}}
+              </div>
+              <div>
+                {{form.password1}}
+              </div>
+              <div>
+                {{form.password2}}
+              </div>
+              <div>
+                <a class="p-2 mt-4 bg-dark btn-dark" onclick="register()">Login</a>
+                <button class="p-2 mt-4 bg-light" name = 'submit' value = 'register'>Register</button>
+              </div>
+            </div>
+          </form>
+        </div>
+  </div>
+  </div>
+  <div class="navbar-header" style="padding-top:10rem;">
+    <nav class="menu nav-masthead bgg text-light" style="padding-top:6.5rem;" id="menu">
+      <div>
+        <a class="nav-link" href="/">Wallet</a>
+        <a class="nav-link" href="/">Report</a>
+        <a class="nav-link" href="/">Blog</a>
+        <a class="nav-link" href="/">Language</a>
+        <a class="nav-link" href="/">Settings</a>
+      </div>
+    </nav>
+  </div>
+  <div class="containers" id="main">
+    <div class="row bg-light text-light">
+      <li class="col-12"><h1 class="card-title display-1 mb-5 text-dark" style="text-align: center;">రాశిచక్రం</h1></li></div><div class="row bg-light text-light"><div class="col-xl-2 col-lg-3 col-md-4 col-sm-6"><div class="card"><div class="card-body"><span class="ai aries"></span><h1>మేషము</h1></div></div></div><div class="col-xl-2 col-lg-3 col-md-4 col-sm-6"><div class="card"><div class="card-body"><span class="ai taurus"></span><h1>వృషభము</h1></div></div></div><div class="col-xl-2 col-lg-3 col-md-4 col-sm-6"><div class="card"><div class="card-body"><span class="ai gemini">
+  </span><h1>మిథునము</h1></div></div></div><div class="col-xl-2 col-lg-3 col-md-4 col-sm-6"><div class="card"><div class="card-body"><span class="ai cancer"></span><h1>కర్కాటకము</h1></div></div></div><div class="col-xl-2 col-lg-3 col-md-4 col-sm-6"><div class="card"><div class="card-body"><span class="ai leo"></span><h1>సింహము</h1></div></div></div><div class="col-xl-2 col-lg-3 col-md-4 col-sm-6"><div class="card"><div class="card-body"><span class="ai virgo"></span><h1>కన్యా</h1></div></div></div><div class="col-xl-2 col-lg-3 col-md-4 col-sm-6"><div class="card"><div class="card-body"><span class="ai libra"></span><h1>తుల</h1></div></div></div><div class="col-xl-2 col-lg-3 col-md-4 col-sm-6"><div class="card"><div class="card-body"><span class="ai scorpio"></span><h1>వృశ్చికము</h1></div></div></div><div class="col-xl-2 col-lg-3 col-md-4 col-sm-6"><div class="card"><div class="card-body"><span class="ai sagittarius"></span><h1>ధనస్సు</h1></div></div></div><div class="col-xl-2 col-lg-3 col-md-4 col-sm-6"><div class="card"><div class="card-body"><span class="ai capricorn"></span><h1>మకరము</h1></div></div></div><div class="col-xl-2 col-lg-3 col-md-4 col-sm-6"><div class="card"><div class="card-body"><span class="ai aquarius"></span><h1>కుంభము</h1></div></div></div><div class="col-xl-2 col-lg-3 col-md-4 col-sm-6"><div class="card"><div class="card-body"><span class="ai pisces"></span><h1>మీనము</h1></div>
+</div>
+</div>
+</div></div></body>
+  <script>
+
+  var form_fields = document.getElementsByTagName('input')
+  form_fields[1].placeholder = 'Username'
+  form_fields[2].placeholder = 'Password'
+  form_fields[4].placeholder = 'Username'
+  form_fields[5].placeholder = 'Email'
+  form_fields[6].placeholder = 'Password'
+  form_fields[7].placeholder = 'Confirm Password'
+
+  for (var field in form_fields){
+    form_fields[field].className += 'form-control'
+  }
+
+  document.querySelector("#open_menu").addEventListener('click', openMenu);
+  document.querySelector("#main").addEventListener('click', closeMenu);
+</script>
+</html>

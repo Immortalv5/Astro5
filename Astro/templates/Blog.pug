@@ -1,0 +1,21 @@
+style(type="text/css").
+  .card p{
+    font-size: 1vmin;
+    margin: 0 0 2px 5px;
+  }
+
+//a(href = '/astrolgier' style = '')
+div(style = 'margin-bottom: 1.5rem;').card
+  div.row
+    div.col-3
+      img(style = 'text-align: center; position: relative; top: 30%; left: 70%; transform: translate(-50%,-50%); height: 40px; width: 40px;' src = 'img/icon.png').mx-auto
+    div.col-5.flex
+      h5(style = 'font-size: 1.5vmin;').font-weight-bold.mt-3 #{name}
+      p #{feature}
+      p #{language}
+      p.mb-2 #{experience}
+      p.mb-4.font-weight-bold Rs.#{price}
+    div(style = 'text-align: right;').col-4.d-flex
+      h5(style = 'font-size: 1.4vmin; position: absolute; bottom:20; right: 20; border-radius: 0.5rem; padding: 6px 12px; margin-right: 0.5rem;').btn-primary Call
+      p(style = 'position: absolute; bottom:0; right: 20;').font-weight-bold.m-2 Rs.#{priceCall}/min
+  

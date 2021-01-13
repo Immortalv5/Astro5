@@ -1,0 +1,21 @@
+<html><head><html><head><meta charset="utf-8"/><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/><link rel="stylesheet" href="/css/index.css"/><link rel="stylesheet" href="/css/login.css"/><link rel="icon" href="img/icon.png" type="image/png"/><script>function setCookie(cname, cvalue, exdays) {
+  var date = new Date();
+  date.setTime(date.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ date.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  console.log(document.cookie);
+}
+function openMenu(){
+  document.querySelector(".menu").style.width = "250px";
+  document.querySelector(".menu").style.visibility = "visible";
+  document.querySelector('.move').style.left = "250px";
+  document.querySelector('.leftmove').style.right = "250px";
+}
+function closeMenu(){
+document.querySelector(".menu").style.width = "0px";
+document.querySelector(".menu").style.visibility = "hidden";
+document.querySelector('.move').style.left = "0px";
+document.querySelector('.leftmove').style.right = "0px"; 
+}
+</script></head><body><nav class="navbar masthead nav-masthead bgg text-light move"><div class="d-flex justify-content-start"><a class="fa fa-bars text-light m-auto" id="open_menu"></a><a class="mb-3 title display-4">Astrogeeks</a></div><div class="d-flex justify-content-end leftmove"><a class="nav-link" href="/">Home</a><a class="nav-link" href="/astrolgy">Astrology</a><a class="nav-link mr-5" href="/book">Book</a><a class="nav-link mr-5" onclick="document.getElementById(&quot;appear&quot;).style.display = &quot;block&quot;">Login</a></div></nav><div class="modal text-light" id="appear"><div class="modal-content animate"><span class="close" onclick="document.getElementById('appear').style.display='none'">&times;</span><h2 style="text-align:center; padding: 1.5rem;">Astrogeeks</h2><div class="row"><div class="part col-6 card-body"><h5 class="card-title" style="text-align:right; padding-right: 2rem;">Login</h5><form action="/login" method="POST"><div class="card-body" style="text-align:right; padding-left: 2rem;"><div><input type="text" name="User" placeholder="Username" autocomplete="off"/></div><div><input type="text" name="Pass" placeholder="Password" autocomplete="off"/></div><div><button class="p-2 mt-4 bg-light">Submit</button></div></div></form></div><div class="part col-6 card-body" style="border-left: 1px solid #999;"><h5 class="card-title" style="text-align:left; padding-left: 2rem;">Register</h5><form action="/register" method="POST"><div class="card-body" style="text-align:left; padding-right: 2rem;"><div><input type="text" name="User" placeholder="First Name" autocomplete="off"/></div><div><input type="text" name="Pass" placeholder="Last Name" autocomplete="off"/></div><div><input type="text" name="Pass" placeholder="Username" autocomplete="off"/></div><div><input type="text" name="Pass" placeholder="Password" autocomplete="off"/></div><div><input type="text" name="Pass" placeholder="Confirm Password" autocomplete="off"/></div><div><button class="p-2 mt-4 bg-light">Register</button></div></div></form></div></div></div></div><div class="navbar-header" style="padding-top:10rem;"><nav class="menu nav-masthead bgg text-light" style="padding-top:6.5rem;" id="menu"><div><a class="nav-link" href="/">Wallet</a><a class="nav-link" href="/">Report</a><a class="nav-link" href="/">Blog</a><a class="nav-link" href="/">Language</a><a class="nav-link" href="/">Settings</a></div></nav></div></body></html></head><body><div class="containers" style="height: 50%;" id="main"></div></body><script>document.querySelector("#open_menu").addEventListener('click', openMenu);
+document.querySelector("#main").addEventListener('click', closeMenu);</script></html>
