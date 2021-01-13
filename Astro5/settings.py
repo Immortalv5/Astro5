@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-django_heroku.settings(locals())
 # Application definition
 
 INSTALLED_APPS = [
@@ -121,4 +120,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
 LOGIN_REDIRECT_URL = '/'
+
+django_heroku.settings(locals())
