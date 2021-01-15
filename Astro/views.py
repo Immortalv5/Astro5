@@ -20,10 +20,9 @@ def index(request):
         elif request.POST.get('submit') == 'login':
             username = request.POST.get('login_user')
             password = request.POST.get('login_pass')
-
+            user = authenticate(request, username = username, password = password)
             print(username)
             print(password)
-            user = authenticate(request, username = username, password = password)
             print(user)
             if user is not None:
                 messages.info(request, 'Username is correct')
