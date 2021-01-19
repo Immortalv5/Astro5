@@ -1,0 +1,52 @@
+{% extends 'Astrology.html' %}
+{% load static %}
+{% block body_block %}
+
+<div class="modal-back text-light">
+  <div class="modal-content animate">
+    <a class="close" href = '/'>&times;</a>
+    <h2 style="text-align:center; padding: 1.5rem;">Register</h2>
+      <div class="part col-6 card-body" style="border-left: 1px solid #999;">
+        <form action="" method="POST">
+          <div class="card-body" style="text-align:center; padding-right: 2rem;">
+            {% csrf_token %}
+            <div style = "width: 100%;">
+              {{user_form.username}}
+            </div>
+            <div>
+              {{user_form.email}}
+            </div>
+            <div>
+              {{user_form.password}}
+            </div>
+            <div>
+              {{profile_form.portfolio_site}}
+            </div>
+            <div>
+              {{profile_form.profile_pic}}
+            </div>
+            <div>
+              <a class="p-2 mt-4 bg-dark btn-dark" href="{% url 'Astro:user_login' %}">Login</a>
+              <button class="p-2 mt-4 bg-light" name = 'submit' value = 'register'>Register</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script>
+var form_fields = document.getElementsByTagName('input')
+form_fields[1].placeholder = 'Username'
+form_fields[2].placeholder = 'Email'
+form_fields[3].placeholder = 'Password'
+form_fields[4].placeholder = 'Profile Site'
+
+
+for (var field in form_fields){
+  form_fields[field].className += 'form-control'
+  form_fields[field].style.width = '100%'
+}
+</script>
+
+{% endblock %}

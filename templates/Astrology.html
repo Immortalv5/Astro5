@@ -1,0 +1,59 @@
+{% load static %}
+
+<html>
+  <head>
+    <title>Home</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="{% static 'css/astrology.css' %}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/index.css'%}"/>
+    <link rel="stylesheet" href="{% static 'css/login.css'%}"/>
+    <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
+    <script>
+    function setCookie(cname, cvalue, exdays) {
+      var date = new Date();
+      date.setTime(date.getTime() + (exdays*24*60*60*1000));
+      var expires = "expires="+ date.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      console.log(document.cookie);
+    }
+    function openMenu(){
+      document.querySelector(".menu").style.width = "250px";
+      document.querySelector(".menu").style.visibility = "visible";
+      document.querySelector('.move').style.left = "250px";
+      document.querySelector('.leftmove').style.right = "250px";
+    }
+    function closeMenu(){
+    document.querySelector(".menu").style.width = "0px";
+    document.querySelector(".menu").style.visibility = "hidden";
+    document.querySelector('.move').style.left = "0px";
+    document.querySelector('.leftmove').style.right = "0px";
+    }
+    </script>
+  </head>
+  <body>
+    <nav class="navbar masthead nav-masthead bgg text-light move">
+      <div class="d-flex justify-content-start">
+        <a class="fa fa-bars text-light m-auto" id="open_menu"></a>
+        <a class="mb-3 title display-4">Astro</a>
+      </div>
+      <div class="d-flex justify-content-end leftmove">
+        <a class="nav-link" href="{% url 'index' %}">Home</a>
+        <a class="nav-link mr-5" href="{% url 'book' %}">Book</a>
+        {% if user.is_authenticated %}
+          <a class="nav-link mr-5" href="{% url 'logout' %}">Logout</a>
+        {% else %}
+          <a class="nav-link mr-5" href = "{% url 'Astro:user_login' %}">Login</a>
+        {% endif %}
+
+      </div>
+    </nav>
+    {% block body_block %}
+    {% endblock %}
+
+<script>
+  document.querySelector("#open_menu").addEventListener('click', openMenu);
+  document.querySelector("#main").addEventListener('click', closeMenu);
+  </script>
+</html>

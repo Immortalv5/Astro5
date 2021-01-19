@@ -3,8 +3,9 @@
 --sidecolor: #fa8231;
 }
 
-.modal {
-  display: none;
+.modal-back {
+  width: 100%;
+  height: 100%;
   position: fixed;
   z-index: 1;
   overflow: auto;
@@ -17,6 +18,7 @@
   background-color: var(--bgcolor);
   margin: 5rem auto;
   width: 35%;
+  z-index: 1;
   border-radius: 1rem;
 }
 
