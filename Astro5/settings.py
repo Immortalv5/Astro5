@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'Astro.apps.AstroConfig',
+    'Astro',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
