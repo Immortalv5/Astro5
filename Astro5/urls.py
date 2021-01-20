@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url,include
 from Astro import views
+import django_twilio
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +25,5 @@ urlpatterns = [
     url(r'^book/',views.book,name='book'),
     url(r'^Astro/',include('Astro.urls')),
     url(r'^logout/$', views.user_logout, name='logout'),
+    path('sms/', views.say),
 ]

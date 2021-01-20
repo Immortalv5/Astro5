@@ -30,6 +30,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TWILIO_ACCOUNT_SID = 'AC0b55cc5835cb90f23516cc7af88ffe82'
+TWILIO_AUTH_TOKEN = 'bb7ce28289048430e81859f0ada78ddf'
+TWILIO_DEFAULT_CALLERID = '448081648065'
+SMS_BROADCAST_TO_NUMBERS = [
+    "447789486763", # use the format +19735551234
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django_twilio',
 ]
 
 MIDDLEWARE = [
