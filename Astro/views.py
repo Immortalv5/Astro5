@@ -9,18 +9,6 @@ from .forms import CreateUserForm, UserProfileInfoForm
 from django.conf import settings
 
 
-from django.http import HttpResponse
-from twilio.rest import Client
-
-def say(request):
-    client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-    for recipient in settings.SMS_BROADCAST_TO_NUMBERS:
-        if recipient:
-            client.calls.create(to=recipient,
-                                   from_=settings.TWILIO_DEFAULT_CALLERID,
-                                   )
-    return HttpResponse("messages sent!", 200)
-
 def index(request):
     return render(request, 'Home.html')
 

@@ -25,5 +25,4 @@ urlpatterns = [
     url(r'^book/',views.book,name='book'),
     url(r'^Astro/',include('Astro.urls')),
     url(r'^logout/$', views.user_logout, name='logout'),
-    path('sms/', views.say),
 ]
