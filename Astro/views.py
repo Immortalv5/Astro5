@@ -10,6 +10,10 @@ from django.conf import settings
 
 
 def index(request):
+    username = None
+    if request.user:
+        username = request.user.username
+        return render(request, 'Home.html', {'username': username.capitalize()})
     return render(request, 'Home.html')
 
 @login_required
@@ -39,6 +43,7 @@ def register(request):
             registered = True
         else:
             print(user_form.errors,profile_form.errors)
+        return HttpResponseRedirect(reverse('Astro:user_login'))
     else:
         user_form = CreateUserForm()
         profile_form = UserProfileInfoForm()
