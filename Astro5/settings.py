@@ -38,7 +38,7 @@ PAYPAL_RECEIVER_EMAIL = 'sb-akoqb4861121@business.example.com'
 PAYPAL_TEST = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -113,6 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SECURE_SSL_REDIRECT = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
