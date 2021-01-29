@@ -18,12 +18,24 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 STATIC_DIR = os.path.join(BASE_DIR,'static')
 MEDIA_DIR = os.path.join(BASE_DIR,'media')
-print(BASE_DIR)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '552z)_5tt^7+$w-01#bh!e9(yqo@ykq9s(zt4!)11sji290(mq'
+
+#PAYMENTMODE
+
+PAYTM_MERCHANT_ID = 'DIY12386817555501617'
+PAYTM_SECRET_KEY = 'bKMfNxPPf_QdZppa'
+PAYTM_WEBSITE = 'WEBSTAGING'
+PAYTM_CHANNEL_ID = 'WEB'
+PAYTM_INDUSTRY_TYPE_ID = 'Retail'
+
+#Paypal settings
+PAYPAL_RECEIVER_EMAIL = 'sb-akoqb4861121@business.example.com'
+PAYPAL_TEST = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

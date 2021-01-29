@@ -1,6 +1,6 @@
 :root{
---bgcolor: #fd9644;
---sidecolor: #fa8231;
+--bgcolor: #ffe8d6;
+--sidecolor: #fd9644;
 }
 
 body{
@@ -58,6 +58,14 @@ body{
   font-size: 30px;
   padding: 1rem;
   margin-right: 2rem !important;
+}
+
+.user-photo {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  border: 1px solid white;
+  box-shadow: 5px 5px 25px 0px rgba(0,0,0,0.2);
 }
 
 .bgg{

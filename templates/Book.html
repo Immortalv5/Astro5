@@ -1,4 +1,5 @@
 {% load static %}
+
 <html>
   <head>
     <title>Home</title>
@@ -46,73 +47,53 @@
     <div class="d-flex justify-content-end leftmove">
       <a class="nav-link" href="{% url 'index' %}">Home</a>
       <a class="nav-link mr-5" href="{% url 'book' %}">Book</a>
+      {% if user.is_authenticated %}
+        <a class="nav-link mr-5" href="{% url 'logout' %}">{{ username }}</a>
+      {% else %}
+        <a class="nav-link mr-5" href = "{% url 'Astro:user_login' %}">Login</a>
+      {% endif %}
     </div>
   </nav>
 
-  <div class="navbar-header" style="padding-top:10rem;">
+  <div class="navbar-header" style="padding-top:8rem;">
     <nav class="menu nav-masthead bgg text-light" style="padding-top:6.5rem;" id="menu">
       <div>
-        <a class="nav-link" href="/">Wallet</a>
-        <a class="nav-link" href="/">Report</a>
-        <a class="nav-link" href="/">Blog</a>
-        <a class="nav-link" href="/">Language</a>
-        <a class="nav-link" href="/">Settings</a>
+        <a class="nav-link" href="{% url 'initiate_payment'%}">Wallet</a>
+        <a class="nav-link" href="{% url 'book' %}">Report</a>
+        <a class="nav-link" href="{% url 'book' %}">Blog</a>
+        <a class="nav-link" href="{% url 'book' %}">Language</a>
+        <a class="nav-link" href="{% url 'book' %}">Settings</a>
       </div>
     </nav>
   </div>
   <body>
-      <div class="containers mx-auto row" id="main">
-          <div class="col-xl-4 col-lg-6 col-sm-12"><style type="text/css">.card p{
+    <div class="containers mx-auto row" id="main">
+      <div class="col-xl-4 col-lg-6 col-sm-12">
+        <style type="text/css">.card p{
           font-size: 1vmin;
           margin: 0 0 2px 5px;
         }
-        </style><!--a(href = '/astrolgier' style = '')--><div class="card" style="margin-bottom: 1.5rem;"><div class="row"><div class="col-3"><img class="mx-auto" style="text-align: center; position: relative; top: 30%; left: 70%; transform: translate(-50%,-50%); height: 40px; width: 40px;" src="img/icon.png"/></div><div class="col-5 flex"><h5 class="font-weight-bold mt-3" style="font-size: 1.5vmin;">పేరు</h5><p>లక్షణాలు</p><p>భాష</p><p class="mb-2">సంవత్సరం</p><p class="mb-4 font-weight-bold">Rs.500</p></div><div class="col-4 d-flex" style="text-align: right;"><h5 class="btn-primary" style="font-size: 1.4vmin; position: absolute; bottom:20; right: 20; border-radius: 0.5rem; padding: 6px 12px; margin-right: 0.5rem;">Call</h5><p class="font-weight-bold m-2" style="position: absolute; bottom:0; right: 20;">Rs.20/min</p></div></div></div></div><div class="col-xl-4 col-lg-6 col-sm-12"><style type="text/css">.card p{
-          font-size: 1vmin;
-          margin: 0 0 2px 5px;
-        }
-        </style><!--a(href = '/astrolgier' style = '')--><div class="card" style="margin-bottom: 1.5rem;"><div class="row"><div class="col-3"><img class="mx-auto" style="text-align: center; position: relative; top: 30%; left: 70%; transform: translate(-50%,-50%); height: 40px; width: 40px;" src="img/icon.png"/></div><div class="col-5 flex"><h5 class="font-weight-bold mt-3" style="font-size: 1.5vmin;">పేరు</h5><p>లక్షణాలు</p><p>భాష</p><p class="mb-2">సంవత్సరం</p><p class="mb-4 font-weight-bold">Rs.500</p></div><div class="col-4 d-flex" style="text-align: right;"><h5 class="btn-primary" style="font-size: 1.4vmin; position: absolute; bottom:20; right: 20; border-radius: 0.5rem; padding: 6px 12px; margin-right: 0.5rem;">Call</h5><p class="font-weight-bold m-2" style="position: absolute; bottom:0; right: 20;">Rs.20/min</p></div></div></div></div><div class="col-xl-4 col-lg-6 col-sm-12"><style type="text/css">.card p{
-          font-size: 1vmin;
-          margin: 0 0 2px 5px;
-        }
-        </style><!--a(href = '/astrolgier' style = '')--><div class="card" style="margin-bottom: 1.5rem;"><div class="row"><div class="col-3"><img class="mx-auto" style="text-align: center; position: relative; top: 30%; left: 70%; transform: translate(-50%,-50%); height: 40px; width: 40px;" src="img/icon.png"/></div><div class="col-5 flex"><h5 class="font-weight-bold mt-3" style="font-size: 1.5vmin;">పేరు</h5><p>లక్షణాలు</p><p>భాష</p><p class="mb-2">సంవత్సరం</p><p class="mb-4 font-weight-bold">Rs.500</p></div><div class="col-4 d-flex" style="text-align: right;"><h5 class="btn-primary" style="font-size: 1.4vmin; position: absolute; bottom:20; right: 20; border-radius: 0.5rem; padding: 6px 12px; margin-right: 0.5rem;">Call</h5><p class="font-weight-bold m-2" style="position: absolute; bottom:0; right: 20;">Rs.20/min</p></div></div></div></div><div class="col-xl-4 col-lg-6 col-sm-12"><style type="text/css">.card p{
-          font-size: 1vmin;
-          margin: 0 0 2px 5px;
-        }
-        </style><!--a(href = '/astrolgier' style = '')--><div class="card" style="margin-bottom: 1.5rem;"><div class="row"><div class="col-3"><img class="mx-auto" style="text-align: center; position: relative; top: 30%; left: 70%; transform: translate(-50%,-50%); height: 40px; width: 40px;" src="img/icon.png"/></div><div class="col-5 flex"><h5 class="font-weight-bold mt-3" style="font-size: 1.5vmin;">పేరు</h5><p>లక్షణాలు</p><p>భాష</p><p class="mb-2">సంవత్సరం</p><p class="mb-4 font-weight-bold">Rs.500</p></div><div class="col-4 d-flex" style="text-align: right;"><h5 class="btn-primary" style="font-size: 1.4vmin; position: absolute; bottom:20; right: 20; border-radius: 0.5rem; padding: 6px 12px; margin-right: 0.5rem;">Call</h5><p class="font-weight-bold m-2" style="position: absolute; bottom:0; right: 20;">Rs.20/min</p></div></div></div></div><div class="col-xl-4 col-lg-6 col-sm-12"><style type="text/css">.card p{
-          font-size: 1vmin;
-          margin: 0 0 2px 5px;
-        }
-        </style><!--a(href = '/astrolgier' style = '')--><div class="card" style="margin-bottom: 1.5rem;"><div class="row"><div class="col-3"><img class="mx-auto" style="text-align: center; position: relative; top: 30%; left: 70%; transform: translate(-50%,-50%); height: 40px; width: 40px;" src="img/icon.png"/></div><div class="col-5 flex"><h5 class="font-weight-bold mt-3" style="font-size: 1.5vmin;">పేరు</h5><p>లక్షణాలు</p><p>భాష</p><p class="mb-2">సంవత్సరం</p><p class="mb-4 font-weight-bold">Rs.500</p></div><div class="col-4 d-flex" style="text-align: right;"><h5 class="btn-primary" style="font-size: 1.4vmin; position: absolute; bottom:20; right: 20; border-radius: 0.5rem; padding: 6px 12px; margin-right: 0.5rem;">Call</h5><p class="font-weight-bold m-2" style="position: absolute; bottom:0; right: 20;">Rs.20/min</p></div></div></div></div><div class="col-xl-4 col-lg-6 col-sm-12"><style type="text/css">.card p{
-          font-size: 1vmin;
-          margin: 0 0 2px 5px;
-        }
-        </style><!--a(href = '/astrolgier' style = '')--><div class="card" style="margin-bottom: 1.5rem;"><div class="row"><div class="col-3"><img class="mx-auto" style="text-align: center; position: relative; top: 30%; left: 70%; transform: translate(-50%,-50%); height: 40px; width: 40px;" src="img/icon.png"/></div><div class="col-5 flex"><h5 class="font-weight-bold mt-3" style="font-size: 1.5vmin;">పేరు</h5><p>లక్షణాలు</p><p>భాష</p><p class="mb-2">సంవత్సరం</p><p class="mb-4 font-weight-bold">Rs.500</p></div><div class="col-4 d-flex" style="text-align: right;"><h5 class="btn-primary" style="font-size: 1.4vmin; position: absolute; bottom:20; right: 20; border-radius: 0.5rem; padding: 6px 12px; margin-right: 0.5rem;">Call</h5><p class="font-weight-bold m-2" style="position: absolute; bottom:0; right: 20;">Rs.20/min</p></div></div></div></div><div class="col-xl-4 col-lg-6 col-sm-12"><style type="text/css">.card p{
-          font-size: 1vmin;
-          margin: 0 0 2px 5px;
-        }
-        </style><!--a(href = '/astrolgier' style = '')--><div class="card" style="margin-bottom: 1.5rem;"><div class="row"><div class="col-3"><img class="mx-auto" style="text-align: center; position: relative; top: 30%; left: 70%; transform: translate(-50%,-50%); height: 40px; width: 40px;" src="img/icon.png"/></div><div class="col-5 flex"><h5 class="font-weight-bold mt-3" style="font-size: 1.5vmin;">పేరు</h5><p>లక్షణాలు</p><p>భాష</p><p class="mb-2">సంవత్సరం</p><p class="mb-4 font-weight-bold">Rs.500</p></div><div class="col-4 d-flex" style="text-align: right;"><h5 class="btn-primary" style="font-size: 1.4vmin; position: absolute; bottom:20; right: 20; border-radius: 0.5rem; padding: 6px 12px; margin-right: 0.5rem;">Call</h5><p class="font-weight-bold m-2" style="position: absolute; bottom:0; right: 20;">Rs.20/min</p></div></div></div></div><div class="col-xl-4 col-lg-6 col-sm-12"><style type="text/css">.card p{
-          font-size: 1vmin;
-          margin: 0 0 2px 5px;
-        }
-        </style><!--a(href = '/astrolgier' style = '')--><div class="card" style="margin-bottom: 1.5rem;"><div class="row"><div class="col-3"><img class="mx-auto" style="text-align: center; position: relative; top: 30%; left: 70%; transform: translate(-50%,-50%); height: 40px; width: 40px;" src="img/icon.png"/></div><div class="col-5 flex"><h5 class="font-weight-bold mt-3" style="font-size: 1.5vmin;">పేరు</h5><p>లక్షణాలు</p><p>భాష</p><p class="mb-2">సంవత్సరం</p><p class="mb-4 font-weight-bold">Rs.500</p></div><div class="col-4 d-flex" style="text-align: right;"><h5 class="btn-primary" style="font-size: 1.4vmin; position: absolute; bottom:20; right: 20; border-radius: 0.5rem; padding: 6px 12px; margin-right: 0.5rem;">Call</h5><p class="font-weight-bold m-2" style="position: absolute; bottom:0; right: 20;">Rs.20/min</p></div></div></div></div><div class="col-xl-4 col-lg-6 col-sm-12"><style type="text/css">.card p{
-          font-size: 1vmin;
-          margin: 0 0 2px 5px;
-        }
-        </style><!--a(href = '/astrolgier' style = '')--><div class="card" style="margin-bottom: 1.5rem;"><div class="row"><div class="col-3"><img class="mx-auto" style="text-align: center; position: relative; top: 30%; left: 70%; transform: translate(-50%,-50%); height: 40px; width: 40px;" src="img/icon.png"/></div><div class="col-5 flex"><h5 class="font-weight-bold mt-3" style="font-size: 1.5vmin;">పేరు</h5><p>లక్షణాలు</p><p>భాష</p><p class="mb-2">సంవత్సరం</p><p class="mb-4 font-weight-bold">Rs.500</p></div><div class="col-4 d-flex" style="text-align: right;"><h5 class="btn-primary" style="font-size: 1.4vmin; position: absolute; bottom:20; right: 20; border-radius: 0.5rem; padding: 6px 12px; margin-right: 0.5rem;">Call</h5><p class="font-weight-bold m-2" style="position: absolute; bottom:0; right: 20;">Rs.20/min</p></div></div></div></div><div class="col-xl-4 col-lg-6 col-sm-12"><style type="text/css">.card p{
-          font-size: 1vmin;
-          margin: 0 0 2px 5px;
-        }
-        </style><!--a(href = '/astrolgier' style = '')--><div class="card" style="margin-bottom: 1.5rem;"><div class="row"><div class="col-3"><img class="mx-auto" style="text-align: center; position: relative; top: 30%; left: 70%; transform: translate(-50%,-50%); height: 40px; width: 40px;" src="img/icon.png"/></div><div class="col-5 flex"><h5 class="font-weight-bold mt-3" style="font-size: 1.5vmin;">పేరు</h5><p>లక్షణాలు</p><p>భాష</p><p class="mb-2">సంవత్సరం</p><p class="mb-4 font-weight-bold">Rs.500</p></div><div class="col-4 d-flex" style="text-align: right;"><h5 class="btn-primary" style="font-size: 1.4vmin; position: absolute; bottom:20; right: 20; border-radius: 0.5rem; padding: 6px 12px; margin-right: 0.5rem;">Call</h5><p class="font-weight-bold m-2" style="position: absolute; bottom:0; right: 20;">Rs.20/min</p></div></div></div></div><div class="col-xl-4 col-lg-6 col-sm-12"><style type="text/css">.card p{
-          font-size: 1vmin;
-          margin: 0 0 2px 5px;
-        }
-        </style><!--a(href = '/astrolgier' style = '')--><div class="card" style="margin-bottom: 1.5rem;"><div class="row"><div class="col-3"><img class="mx-auto" style="text-align: center; position: relative; top: 30%; left: 70%; transform: translate(-50%,-50%); height: 40px; width: 40px;" src="img/icon.png"/></div><div class="col-5 flex"><h5 class="font-weight-bold mt-3" style="font-size: 1.5vmin;">పేరు</h5><p>లక్షణాలు</p><p>భాష</p><p class="mb-2">సంవత్సరం</p><p class="mb-4 font-weight-bold">Rs.500</p></div><div class="col-4 d-flex" style="text-align: right;"><h5 class="btn-primary" style="font-size: 1.4vmin; position: absolute; bottom:20; right: 20; border-radius: 0.5rem; padding: 6px 12px; margin-right: 0.5rem;">Call</h5><p class="font-weight-bold m-2" style="position: absolute; bottom:0; right: 20;">Rs.20/min</p></div></div></div></div><div class="col-xl-4 col-lg-6 col-sm-12"><style type="text/css">.card p{
-          font-size: 1vmin;
-          margin: 0 0 2px 5px;
-        }
-        </style><!--a(href = '/astrolgier' style = '')--><div class="card" style="margin-bottom: 1.5rem;"><div class="row"><div class="col-3"><img class="mx-auto" style="text-align: center; position: relative; top: 30%; left: 70%; transform: translate(-50%,-50%); height: 40px; width: 40px;" src="img/icon.png"/></div><div class="col-5 flex"><h5 class="font-weight-bold mt-3" style="font-size: 1.5vmin;">పేరు</h5><p>లక్షణాలు</p><p>భాష</p><p class="mb-2">సంవత్సరం</p><p class="mb-4 font-weight-bold">Rs.500</p></div><div class="col-4 d-flex" style="text-align: right;"><h5 class="btn-primary" style="font-size: 1.4vmin; position: absolute; bottom:20; right: 20; border-radius: 0.5rem; padding: 6px 12px; margin-right: 0.5rem;">Call</h5><p class="font-weight-bold m-2" style="position: absolute; bottom:0; right: 20;">Rs.20/min</p></div></div></div></div>
+        </style>
+        <div class="card" style="margin-bottom: 1.5rem; height: 200px; width: 300px">
+            <div class="icon">
+              <a class = 'fa fa-phone' style = 'font-size: 14px; margin-right:0 !important; padding:0;text-decoration:none;' href = 'tel:+917306323999'></a>
+            </div>
+            <div class="icon-left">
+              <img class="p-2" src="{% static 'img/icon.png' %}" style = 'height: 50px; width: 50px'/>
+            </div>
+            <div class="icon-down">
+              <h5 class="font-weight-bold" style="font-size: 1.5vmin;">పేరు</h5>
+              <p>భాష</p>
+              <p class="mb-2">సంవత్సరం</p>
+              <p class="font-weight-bold">Rs.500</p>
+            </div>
+            <div class="icon-down-right">
+              <p class="font-weight-bold">Rs.20/min</p>
+            </div>
+          </div>
         </div>
-  </body>
+      </div>
+    </body>
 
   <script>
   document.querySelector("#open_menu").addEventListener('click', openMenu);

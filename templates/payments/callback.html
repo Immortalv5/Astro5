@@ -1,8 +1,7 @@
 {% load static %}
-
 <html>
   <head>
-    <title>Home</title>
+    <title>Callback</title>
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="{% static 'css/astrology.css' %}"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -35,25 +34,30 @@
   <body>
     <nav class="navbar masthead nav-masthead bgg text-light move">
       <div class="d-flex justify-content-start">
-        <a class="fa fa-bars text-light m-auto" id="open_menu"></a>
+        <a class="fa fa-bars text-light m-auto" href = '{% url "initiate_payment" %}'></a>
         <a class="mb-3 title display-4">Astro</a>
       </div>
-      <div class="d-flex justify-content-end leftmove">
-        <a class="nav-link" href="{% url 'index' %}">Home</a>
-        <a class="nav-link mr-5" href="{% url 'book' %}">Book</a>
-        {% if username %}
-          <a class="nav-link mr-5" href="{% url 'logout' %}">{{ username }}</a>
-        {% else %}
-          <a class="nav-link mr-5" href = "{% url 'Astro:user_login' %}">Login</a>
-        {% endif %}
-
-      </div>
     </nav>
-    {% block body_block %}
-    {% endblock %}
 
-<script>
-  document.querySelector("#open_menu").addEventListener('click', openMenu);
-  document.querySelector("#main").addEventListener('click', closeMenu);
-  </script>
-</html>
+  <div style="padding-top:10rem; text-align:center;">
+    <h1> Pay </h1>
+    <p> Your payment is a Success. </p>
+      <h2>Callback Messsage: </h2>                    <br>
+      <h3> Checksum Verification: {{ message }} </h3> <br>
+      MID: {{ MID }}                                  <br>
+      TXNID: {{ TXNID }}                              <br>
+      ORDERID: {{ ORDERID }}                          <br>
+      BANKTXNID: {{ BANKTXNID }}                      <br>
+      TXNAMOUNT: {{ TXNAMOUNT }}                      <br>
+      CURRENCY: {{ CURRENCY }}                        <br>
+      <h3> STATUS: {{ STATUS }} </h3>                 <br>
+      RESPCODE: {{ RESPCODE }}                        <br>
+      RESPMSG: {{ RESPMSG }}                          <br>
+      TXNDATE: {{ TXNDATE }}                          <br>
+      GATEWAYNAME: {{ GATEWAYNAME }}                  <br>
+      BANKNAME: {{ BANKNAME }}                        <br>
+      BIN_NAME: {{ BIN_NAME }}                        <br>
+      PAYMENTMODE: {{ PAYMENTMODE }}                  <br>
+      CHECKSUMHASH: {{ CHECKSUMHASH }}
+  </div>
+</body>

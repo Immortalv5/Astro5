@@ -1,11 +1,7 @@
 :root{
---bgcolor: #fd9644;
+--bgcolor: #ffffff;
 --sidecolor: #fa8231;
 }
-
-/*
- * Signs
-*/
 
 .row{
   padding: 1rem 3rem;
@@ -13,7 +9,50 @@
 
 .card{
   background-color: var(--bgcolor);
-  margin-bottom: 2rem;
+  margin : auto;
+  overflow : hidden;
+  border-radius : 20px;
+  background : white;
+  margin-bottom:50px;
+  transition: all .2s;
+  box-shadow:5px 5px 15px rgba(0,0,0, .3);
+}
+
+.card:hover {
+  box-shadow:5px 5px 25px rgba(0,0,0, .5);
+  transform: translate(-5px, -5px);
+}
+
+.icon{
+  position:absolute;
+  top:0;
+  padding : 20px;
+  right:0;
+  border-bottom-left-radius:20px;
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.icon-left{
+  position:absolute;
+  top:0;
+  padding : 20px;
+  left:0;
+}
+
+.icon-down{
+  position:absolute;
+  bottom:0;
+  padding : 20px;
+  left:0;
+}
+
+.icon-down-right{
+  position:absolute;
+  bottom:0;
+  padding : 20px;
+  right:0;
 }
 
 .card-body{
@@ -24,6 +63,10 @@
 margin-top: 2rem;
 font-size: 2vmin;
 }
+
+/*
+ * Signs
+*/
 
 .ai {
     font-style:normal;

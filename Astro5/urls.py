@@ -20,11 +20,19 @@ from Astro import views
 from Astro.models import UserProfileInfo
 from django.contrib.auth.models import User
 
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$',views.index,name='index'),
     url(r'^book/',views.book,name='book'),
     url(r'^Astro/',include('Astro.urls')),
+    url(r'^wallet/$', views.initiate_payment, name = 'initiate_payment'),
+    url(r'^callback/$', views.callback, name = 'callback'),
     url(r'^logout/$', views.user_logout, name='logout'),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

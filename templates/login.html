@@ -3,14 +3,14 @@
 {% block body_block %}
 
 <div class="modal-back text-light">
-  <div class="modal-content animate">
+  <div class="modal-content animate bgg">
     <a class="close" href = '/'>&times;</a>
     <h2 style="text-align:center; padding: 1.5rem;">Login</h2>
-    <form action="" method="POST">
+    <form action="" method="POST" class = 'inside'>
       <div class="card-body" style="text-align:right; padding-left: 2rem;">
         {% csrf_token %}
         <div>
-          <input type="text" name="login_user"/>
+          <input type="text" name="login_user" autocomplete="off"/>
         </div>
         <div>
           <input type="password" name="login_pass" autocomplete="off"/>
@@ -21,7 +21,7 @@
           {% endfor %}
         </div>
         <div>
-          <a class="p-2 mt-4 btn-dark bg-dark" href = '{% url "Astro:register" %}'>Register</a>
+          <a class="mt-4 bg-light btn-light" href = '{% url "Astro:register" %}'>Register</a>
           <button class="p-2 mt-4 bg-light" name = 'submit' value = 'login'>Login</button>
         </div>
       </div>
