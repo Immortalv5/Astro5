@@ -4,4 +4,4 @@ gunicorn
 requests
 pillow
 pycrypto
-whitenose
+whitenoise
