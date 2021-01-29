@@ -4,3 +4,4 @@ gunicorn
 requests
 pillow
 pycrypto
+whitenose
