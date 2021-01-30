@@ -23,12 +23,11 @@ MEDIA_DIR = os.path.join(BASE_DIR,'media')
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = '552z)_5tt^7+$w-01#bh!e9(yqo@ykq9s(zt4!)11sji290(mq'
 
 #PAYMENTMODE
-
-PAYTM_MERCHANT_ID = os.environ['PAYTM_MERCHANT_ID']
-PAYTM_SECRET_KEY = os.environ['PAYTM_SECRET_KEY']
+PAYTM_MERCHANT_ID = 'DIY12386817555501617'
+PAYTM_SECRET_KEY = 'bKMfNxPPf_QdZppa'
 PAYTM_WEBSITE = 'WEBSTAGING'
 PAYTM_CHANNEL_ID = 'WEB'
 PAYTM_INDUSTRY_TYPE_ID = 'Retail'
@@ -38,7 +37,7 @@ PAYPAL_RECEIVER_EMAIL = 'sb-akoqb4861121@business.example.com'
 PAYPAL_TEST = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -115,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-SECURE_SSL_REDIRECT = False
+SECURE_SSL_REDIRECT = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
