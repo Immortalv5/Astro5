@@ -90,8 +90,12 @@ WSGI_APPLICATION = 'Astro5.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
+        'HOST': 'ec2-18-203-62-227.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
     }
 }
 

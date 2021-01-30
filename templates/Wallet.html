@@ -66,7 +66,7 @@
         </div>
         <div class="user-profile">
           {% if info %}
-            <img src = '/media/default.png' class = 'user-photo'>
+            <img src = '{% static "img/icon.png" %}' class = 'user-photo'>
           {% else %}
             <img src= "{{ info.profile_pic.url }}" class="user-photo">
           {% endif %}
