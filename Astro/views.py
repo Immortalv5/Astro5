@@ -16,6 +16,8 @@ from django.conf import settings
 from PIL import Image
 from .checksum import generate_checksum, verify_checksum
 
+import os
+
 def index(request):
     username = None
     if request.user:
@@ -77,7 +79,7 @@ def initiate_payment(request):
         # ('EMAIL', request.user.email),
         # ('MOBILE_N0', '9911223388'),
         ('INDUSTRY_TYPE_ID', settings.PAYTM_INDUSTRY_TYPE_ID),
-        ('CALLBACK_URL', 'http://127.0.0.1:8000/callback/'),
+        ('CALLBACK_URL', 'http://' + str(os.environ['HOST'])+ ':' + str(os.environ['PORT'])+'/callback/'),
         # ('PAYMENT_MODE_ONLY', 'NO'),
     )
 

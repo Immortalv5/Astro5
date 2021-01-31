@@ -38,7 +38,7 @@ PAYPAL_RECEIVER_EMAIL = 'sb-akoqb4861121@business.example.com'
 PAYPAL_TEST = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'astro5.herokuapp.com']
 
