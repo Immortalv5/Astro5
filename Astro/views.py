@@ -79,7 +79,7 @@ def initiate_payment(request):
         # ('EMAIL', request.user.email),
         # ('MOBILE_N0', '9911223388'),
         ('INDUSTRY_TYPE_ID', settings.PAYTM_INDUSTRY_TYPE_ID),
-        ('CALLBACK_URL', 'http://' + str(os.environ['HOST'])+ ':' + str(os.environ['PORT'])+'/callback/'),
+        ('CALLBACK_URL', str(os.environ['HOST']) + '/callback/'),
         # ('PAYMENT_MODE_ONLY', 'NO'),
     )
 
