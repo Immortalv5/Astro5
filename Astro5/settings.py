@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,11 +24,11 @@ MEDIA_DIR = os.path.join(BASE_DIR,'media')
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '552z)_5tt^7+$w-01#bh!e9(yqo@ykq9s(zt4!)11sji290(mq'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 #PAYMENTMODE
-PAYTM_MERCHANT_ID = 'DIY12386817555501617'
-PAYTM_SECRET_KEY = 'bKMfNxPPf_QdZppa'
+PAYTM_MERCHANT_ID = os.environ['PAYTM_MERCHANT_ID']
+PAYTM_SECRET_KEY = os.environ['PAYTM_SECRET_KEY']
 PAYTM_WEBSITE = 'WEBSTAGING'
 PAYTM_CHANNEL_ID = 'WEB'
 PAYTM_INDUSTRY_TYPE_ID = 'Retail'
@@ -39,12 +40,13 @@ PAYPAL_TEST = True
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'astro5.herokuapp.com']
 
 # Application definition
 
 INSTALLED_APPS = [
     'Astro',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -94,11 +96,13 @@ DATABASES = {
         'NAME': os.environ['DB_NAME'],
         'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': 'ec2-18-203-62-227.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+        'HOST': os.environ['DB_HOST'],
+        'PORT': os.environ['DB_PORT'],
     }
 }
 
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -118,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

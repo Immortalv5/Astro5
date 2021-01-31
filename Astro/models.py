@@ -104,8 +104,8 @@ class Transaction(models.Model):
                                 on_delete=models.CASCADE)
     made_on = models.DateTimeField(auto_now_add=True)
     amount = models.IntegerField()
-    order_id = models.CharField(unique=True, max_length=100, null=True, blank=True)
-    checksum = models.CharField(max_length=100, null=True, blank=True)
+    order_id = models.CharField(unique=True, max_length=500, null=True, blank=True)
+    checksum = models.CharField(max_length=500, null=True, blank=True)
     success = models.BooleanField(default= False)
 
     def save(self, *args, **kwargs):
