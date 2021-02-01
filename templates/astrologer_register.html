@@ -1,0 +1,79 @@
+{% load static %}
+
+<html>
+  <head>
+    <title>Home</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="{% static 'css/astrology.css' %}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/index.css'%}"/>
+    <link rel="stylesheet" href="{% static 'css/login.css'%}"/>
+    <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
+  </head>
+  <body>
+    <nav class="navbar masthead nav-masthead bgg text-light move">
+      <div class="d-flex justify-content-start">
+        <a class="fa fa-bars text-light m-auto"></a>
+        <a class="mb-3 title display-4"  href="{% url 'index' %}" >Astro</a>
+      </div>
+    </nav>
+    <div class="modal-back text-light">
+      <div class="modal-content animate bgg">
+        <a class="close" href = '/'>&times;</a>
+        <h2 style="text-align:center; padding: 1.5rem;">Astrologer Registration</h2>
+        <div class="card-body" style="border-left: 1px solid #999;">
+          <form action="" method="POST" class = 'inside' enctype="multipart/form-data">
+            <div class="card-body" style="text-align:right; padding-right: 2rem;">
+              {% csrf_token %}
+              <div  style = "width: 100%;">
+                {{profile_form.username}}
+              </div>
+              <div>
+                {{profile_form.name}}
+              </div>
+              <div>
+                {{profile_form.phone_number}}
+              </div>
+              <div>
+                {{profile_form.XP}}
+              </div>
+              <div>
+                {{profile_form.language}}
+              </div>
+              <div>
+                {{profile_form.rate}}
+              </div>
+              <div>
+                {{profile_form.rate_per_min}}
+              </div>
+              <div>
+                {{profile_form.profile_pic}}
+              </div>
+              <div>
+                <button class="p-2 mt-4 bg-light" name = 'submit' value = 'Submit'>Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+<script>
+var form_fields = document.getElementsByTagName('input')
+form_fields[1].placeholder = 'Username'
+form_fields[2].placeholder = 'Full Name'
+form_fields[3].placeholder = 'Phone Number'
+form_fields[4].placeholder = 'Experience'
+form_fields[5].placeholder = 'Language'
+form_fields[6].placeholder = 'Rate'
+form_fields[7].placeholder = 'Rate per Minute'
+form_fields[8].placeholder = 'Photo'
+console.log(form_fields);
+for (var field in form_fields){
+  form_fields[field].className += 'form-control'
+  console.log(field);
+  form_fields[field].style.width = '100%'
+}
+</script>
+</html>

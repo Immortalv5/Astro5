@@ -9,27 +9,6 @@
   <link rel="stylesheet" href="{% static 'css/index.css'%}"/>
   <link rel="stylesheet" href="{% static 'css/login.css'%}"/>
   <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
-  <script>
-  function setCookie(cname, cvalue, exdays) {
-    var date = new Date();
-    date.setTime(date.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+ date.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-    console.log(document.cookie);
-  }
-  function openMenu(){
-    document.querySelector(".menu").style.width = "250px";
-    document.querySelector(".menu").style.visibility = "visible";
-    document.querySelector('.move').style.left = "250px";
-    document.querySelector('.leftmove').style.right = "250px";
-  }
-  function closeMenu(){
-  document.querySelector(".menu").style.width = "0px";
-  document.querySelector(".menu").style.visibility = "hidden";
-  document.querySelector('.move').style.left = "0px";
-  document.querySelector('.leftmove').style.right = "0px";
-  }
-  </script>
 </head>
 
 
@@ -65,10 +44,10 @@
           </div>
         </div>
         <div class="user-profile">
-          {% if info %}
-            <img src = '{% static "img/icon.png" %}' class = 'user-photo'>
-          {% else %}
+          {% if info.profile_pic %}
             <img src= "{{ info.profile_pic.url }}" class="user-photo">
+          {% else %}
+            <img src = '{% static "img/icon.png" %}' class = 'user-photo'>
           {% endif %}
         </div>
       </div>

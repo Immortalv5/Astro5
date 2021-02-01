@@ -4,12 +4,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.contrib import messages
-from .models import Wallet, Transaction, UserProfileInfo
+from .models import Wallet, Transaction, UserProfileInfo, Astrologers
 #from payments.models import Transaction
 from django.contrib.auth.models import User
 
 from django.views.decorators.csrf import csrf_exempt
-from .forms import CreateUserForm, UserProfileInfoForm
+from .forms import CreateUserForm, UserProfileInfoForm, AstrologerProfileInfoForm
 from django.conf import settings
 #from paypal.standard.forms import PayPalPaymentsForm
 
@@ -18,39 +18,105 @@ from .checksum import generate_checksum, verify_checksum
 
 import os
 
+##################################################################################################
+# Pages
+##################################################################################################
+
 def index(request):
-    username = None
     if request.user:
-        username = request.user.username
-        return render(request, 'Home.html', {'username': username.capitalize()})
+        return render(request, 'Home.html', {'username': request.user.username.capitalize()})
     return render(request, 'Home.html')
 
 @login_required
 def book(request):
-    username = request.user.username
-    return render(request, 'Book.html', {'username': username.capitalize()})
+    astrologers = Astrologers.objects.all()
+    return render(request, 'Book.html', {'username': request.user.username.capitalize(), 'astrologers': astrologers})
+
+##################################################################################################
+# User Authentication
+##################################################################################################
+
+def register(request):
+    registered = False
+    if request.method == 'POST':
+        wallet = Wallet()
+        user_form = CreateUserForm(request.POST)
+        profile_form = UserProfileInfoForm(request.POST, request.FILES)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            wallet.user = user
+            if 'profile_pic' in request.FILES:
+                print('found it')
+                profile.profile_pic = request.FILES['profile_pic']
+            profile.save()
+            wallet.save()
+            registered = True
+            return HttpResponseRedirect(reverse('Astro:user_login'))
+        else:
+            print(user_form.errors,profile_form.errors)
+            messages.error(request, user_form.errors)
+            messages.error(request, profile_form.errors)
+            return HttpResponseRedirect(reverse('Astro:register'))
+    else:
+        user_form = CreateUserForm()
+        profile_form = UserProfileInfoForm()
+    return render(request,'register.html',
+                          {'user_form':user_form,
+                           'profile_form':profile_form,
+                           'registered':registered})
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('login_user')
+        password = request.POST.get('login_pass')
+        user = authenticate(request, username = username, password = password)
+        if user:
+            if user.is_active:
+                login(request,user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                return HttpResponse("Your account was inactive.")
+        else:
+            print("Someone tried to login and failed.")
+            print("They used username: {} and password: {}".format(username,password))
+            messages.error(request, 'Either thy Username or Password is incorrect.')
+            return HttpResponseRedirect(reverse('Astro:user_login'))
+    else:
+        return render(request, 'login.html', {})
 
 @login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
-#@login_required
-#def user_wallet(request):
-#    user = list(User.objects.filter(username = request.user).values())[0]
-#    wallet = list(Wallet.objects.filter(user = request.user).values())[0]
-#    context = {'username': user['username'].capitalize(), 'user': user, 'wallet': wallet}
-#    if request.method == 'POST':
-#        amount = int(request.POST.get('amount'))
-#        transaction = Transaction.objects.create(made_by=request.user, amount=amount)
-#        transaction.save()
-#        request.session['order_id'] = transaction.id
-#        return redirect(reverse('payments:process'))
-
-#    return render(request, 'Wallet.html', context = context)
-
+##################################################################################################
+# Astrologer Registeration
 ##################################################################################################
 
+def astrologer_registration(request):
+    if request.method == 'POST':
+        profile_form = AstrologerProfileInfoForm(request.POST, request.FILES)
+        if profile_form.is_valid():
+            profile = profile_form.save(commit=False)
+            if 'profile_pic' in request.FILES:
+                print('found it')
+                profile.profile_pic = request.FILES['profile_pic']
+            profile.save()
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            messages.error(request, 'The Username is Occupied.')
+            return HttpResponseRedirect(reverse('Astro:astrologer_registration'))
+    else:
+        profile_form = AstrologerProfileInfoForm()
+    return render(request,'astrologer_register.html',
+                          {'profile_form':profile_form})
+
+##################################################################################################
+# Paytm Payment
 ##################################################################################################
 
 @csrf_exempt
@@ -118,55 +184,5 @@ def callback(request):
         return render(request, 'payments/callback.html', context=received_data)
 
 ##################################################################################################
-
+#
 ##################################################################################################
-
-def register(request):
-    registered = False
-    if request.method == 'POST':
-        wallet = Wallet()
-        user_form = CreateUserForm(request.POST)
-        profile_form = UserProfileInfoForm(request.POST)
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
-            print(request.FILES)
-            user.set_password(user.password)
-            user.save()
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            wallet.user = user
-            if 'profile_pic' in request.FILES:
-                print('found it')
-                profile.profile_pic = request.FILES['profile_pic']
-            profile.save()
-            wallet.save()
-            registered = True
-        else:
-            print(user_form.errors,profile_form.errors)
-        return HttpResponseRedirect(reverse('Astro:user_login'))
-    else:
-        user_form = CreateUserForm()
-        profile_form = UserProfileInfoForm()
-    return render(request,'register.html',
-                          {'user_form':user_form,
-                           'profile_form':profile_form,
-                           'registered':registered})
-
-def user_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('login_user')
-        password = request.POST.get('login_pass')
-        user = authenticate(request, username = username, password = password)
-        if user:
-            if user.is_active:
-                login(request,user)
-                return HttpResponseRedirect(reverse('index'))
-            else:
-                return HttpResponse("Your account was inactive.")
-        else:
-            print("Someone tried to login and failed.")
-            print("They used username: {} and password: {}".format(username,password))
-            messages.error(request, 'Either thy Username or Password is incorrect')
-            return HttpResponseRedirect(reverse('Astro:user_login'))
-    else:
-        return render(request, 'login.html', {})

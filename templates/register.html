@@ -6,41 +6,46 @@
   <div class="modal-content animate bgg">
     <a class="close" href = '/'>&times;</a>
     <h2 style="text-align:center; padding: 1.5rem;">Register</h2>
-      <div class="part col-12 card-body" style="border-left: 1px solid #999;">
-        <form action="" method="POST" class = 'inside'>
-          <div class="card-body" style="text-align:right; padding-right: 2rem;">
-            {% csrf_token %}
-            <div style = "width: 100%;">
-              {{user_form.username}}
-            </div>
-            <div>
-              {{user_form.email}}
-            </div>
-            <div>
-              {{user_form.password}}
-            </div>
-            <div>
-              {{profile_form.profile_name}}
-            </div>
-            <div>
-              {{profile_form.profile_pic}}
-            </div>
-            <div>
-              <a class="mt-4 bg-light btn-light" href="{% url 'Astro:user_login' %}">Login</a>
-              <button class="p-2 mt-4 bg-light" name = 'submit' value = 'register'>Register</button>
-            </div>
+    <div class="part col-12 card-body" style="border-left: 1px solid #999;">
+      <form action="" method="POST" class = 'inside' enctype="multipart/form-data">
+        <div class="card-body" style="text-align:right; padding-right: 2rem;">
+          {% csrf_token %}
+          <div style = "width: 100%;">
+            {{profile_form.profile_name}}
           </div>
-        </form>
-      </div>
+          <div>
+            {{user_form.username}}
+          </div>
+          <div>
+            {{user_form.email}}
+          </div>
+          <div>
+            {{user_form.password}}
+          </div>
+          <div>
+            {{profile_form.profile_pic}}
+          </div>
+          <div>
+            {% for message in messages %}
+              <p> {{message}} </p>
+            {% endfor %}
+          </div>
+          <div>
+            <a class="mt-4 bg-light btn-light" href="{% url 'Astro:user_login' %}">Login</a>
+            <button class="p-2 mt-4 bg-light" name = 'submit' value = 'register'>Register</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
+</div>
 
 <script>
 var form_fields = document.getElementsByTagName('input')
-form_fields[1].placeholder = 'Username'
-form_fields[2].placeholder = 'Email'
-form_fields[3].placeholder = 'Password'
-form_fields[4].placeholder = 'Profile Name'
+form_fields[1].placeholder = 'Full Name'
+form_fields[2].placeholder = 'Username'
+form_fields[3].placeholder = 'Email'
+form_fields[4].placeholder = 'Password'
 form_fields[5].placeholder = 'Profile Picture'
 
 for (var field in form_fields){

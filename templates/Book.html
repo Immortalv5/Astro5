@@ -68,6 +68,8 @@
   </div>
   <body>
     <div class="containers mx-auto row" id="main">
+      {% for astrologer in astrologers %}
+      {% if astrologer.approved %}
       <div class="col-xl-4 col-lg-6 col-sm-12">
         <style type="text/css">.card p{
           font-size: 1vmin;
@@ -75,25 +77,27 @@
         }
         </style>
         <div class="card" style="margin-bottom: 1.5rem; height: 200px; width: 300px">
-            <div class="icon">
-              <a class = 'fa fa-phone' style = 'font-size: 14px; margin-right:0 !important; padding:0;text-decoration:none;' href = 'tel:+917306323999'></a>
-            </div>
-            <div class="icon-left">
-              <img class="p-2" src="{% static 'img/icon.png' %}" style = 'height: 50px; width: 50px'/>
-            </div>
-            <div class="icon-down">
-              <h5 class="font-weight-bold" style="font-size: 1.5vmin;">పేరు</h5>
-              <p>భాష</p>
-              <p class="mb-2">సంవత్సరం</p>
-              <p class="font-weight-bold">Rs.500</p>
-            </div>
-            <div class="icon-down-right">
-              <p class="font-weight-bold">Rs.20/min</p>
-            </div>
+          <div class="icon">
+            <a class = 'fa fa-phone' style = 'font-size: 14px; margin-right:0 !important; padding:0;text-decoration:none;' href = "tel:{{ astrologer.phone_number }}"></a>
+          </div>
+          <div class="icon-left">
+            <img class="p-2 user-photo" src="{{ astrologer.profile_pic.url }}" style = 'height: 60px; width: 60px'/>
+          </div>
+          <div class="icon-down">
+            <h5 class="font-weight-bold" style="font-size: 1.5vmin;">{{ astrologer.name }}</h5>
+            <p>{{ astrologer.language }}</p>
+            <p class="mb-2">{{ astrologer.XP}} Experience</p>
+            <p class="font-weight-bold">&#8377; {{astrologer.rate}} </p>
+          </div>
+          <div class="icon-down-right">
+            <p class="font-weight-bold">&#8377; {{astrologer.rate_per_min}} / min</p>
           </div>
         </div>
       </div>
-    </body>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </body>
 
   <script>
   document.querySelector("#open_menu").addEventListener('click', openMenu);

@@ -40,12 +40,13 @@ PAYPAL_TEST = True
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'astro5.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'astro5.herokuapp.com', 'localhost']
 
 # Application definition
 
 INSTALLED_APPS = [
     'Astro',
+    'phonenumber_field',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.admin',

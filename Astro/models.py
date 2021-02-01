@@ -6,6 +6,7 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.db import IntegrityError
 
+from phonenumber_field.modelfields import PhoneNumberField
 
 class InsufficientBalance(IntegrityError):
     """Raised when a wallet has insufficient balance to
@@ -14,13 +15,22 @@ class InsufficientBalance(IntegrityError):
     so that it is automatically rolled-back during django's
     transaction lifecycle.
     """
-# We'll be using BigIntegerField by default instead
-# of DecimalField for simplicity. This can be configured
-# though by setting `WALLET_CURRENCY_STORE_FIELD` in your
-# `settings.py`.
 
-#CURRENCY_STORE_FIELD = models.DecimalField(max_digits=10, decimal_places=2)
+class UserProfileInfo(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    profile_name = models.CharField(max_length=100)
+    profile_pic = models.ImageField(upload_to='profile_pic',blank=True)
 
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user'],
+                name='unique_profile'
+            )
+        ]
 
 class Wallet(models.Model):
     # We should reference to the AUTH_USER_MODEL so that
@@ -108,6 +118,14 @@ class Transaction(models.Model):
     checksum = models.CharField(max_length=500, null=True, blank=True)
     success = models.BooleanField(default= False)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields = ['order_id'],
+                name= 'unique_order'
+            )
+        ]
+
     def save(self, *args, **kwargs):
         if self.order_id is None and self.made_on and self.id:
             self.order_id = self.made_on.strftime('PAY2ME%Y%m%dODR') + str(self.id)
@@ -116,24 +134,26 @@ class Transaction(models.Model):
     def __str__(self):
         return self.order_id
 
-class UserProfileInfo(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    profile_name = models.CharField(max_length=100)
-    profile_pic = models.ImageField(upload_to='profile_pic',blank=True)
+#Creating Astrologers
+class Astrologers(models.Model):
+    username = models.CharField(max_length = 30)
+    name = models.CharField(max_length = 100)
+    XP = models.FloatField(default = 0)
+    language = models.CharField(max_length = 100)
+    phone_number = PhoneNumberField()
+    rate = models.FloatField(default = 300)
+    rate_per_min = models.FloatField(default = 20)
 
-    def __str__(self):
-        return self.user.username
+    approved = models.BooleanField(default= False)
+    profile_pic = models.ImageField(upload_to='astrologers_pic',blank=True)
 
     class Meta:
-        constraints = [
+       constraints = [
             models.UniqueConstraint(
-                fields=['user', 'profile_name'],
-                name='unique'
+                fields = ['username', 'phone_number'],
+                name = 'Astro_unique'
             )
-        ]
+       ]
 
-#Creating Astrologers
-#class Astrologers(models.Model):
-#    name = models.CharField(max_length = 100)
-#    XP = model.FloatField(default = 0)
-#    language = model.
+    def __str__(self):
+       return self.username
