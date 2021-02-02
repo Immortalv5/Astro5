@@ -47,6 +47,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'astro5.herokuapp.com', 'localhost']
 INSTALLED_APPS = [
     'Astro',
     'phonenumber_field',
+    'captcha',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.admin',
@@ -87,6 +88,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Astro5.wsgi.application'
 
+RECAPTCHA_PUBLIC_KEY = os.environ['CAP_SITE_KEY']
+RECAPTCHA_PRIVATE_KEY = os.environ['CAP_SECRET_KEY']
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

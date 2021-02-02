@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django import forms
+from captcha.fields import ReCaptchaField
 
 from .models import UserProfileInfo, Wallet, Astrologers
 
@@ -15,6 +16,7 @@ class UserProfileInfoForm(forms.ModelForm):
          fields = ('profile_name','profile_pic',)
 
 class AstrologerProfileInfoForm(forms.ModelForm):
-     class Meta():
-         model = Astrologers
-         fields = ('username','name', 'XP','phone_number', 'language', 'rate', 'rate_per_min', 'profile_pic',)
+    captcha = ReCaptchaField()
+    class Meta():
+        model = Astrologers
+        fields = ('username','name', 'XP','phone_number', 'language', 'rate', 'rate_per_min', 'profile_pic', 'captcha')
