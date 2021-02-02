@@ -9,4 +9,4 @@ dj-database-url
 psycopg2
 django-phonenumber-field
 phonenumbers
-django-recaptcha-2.0.6
+django-recaptcha
