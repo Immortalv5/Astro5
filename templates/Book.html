@@ -81,7 +81,11 @@
             <a class = 'fa fa-phone' style = 'font-size: 14px; margin-right:0 !important; padding:0;text-decoration:none;' href = "tel:{{ astrologer.phone_number }}"></a>
           </div>
           <div class="icon-left">
-            <img class="p-2 user-photo" src="{{ astrologer.profile_pic.url }}" style = 'height: 60px; width: 60px'/>
+            {% if astrologer.profile_pic %}
+              <img class="p-2 user-photo" src="{{ astrologer.profile_pic.url }}" style = 'height: 60px; width: 60px'/>
+            {% else %}
+              <img class="p-2 user-photo" src="{% static 'img/icon.png' %}" style = 'height: 60px; width: 60px'/>
+            {% endif %}
           </div>
           <div class="icon-down">
             <h5 class="font-weight-bold" style="font-size: 1.5vmin;">{{ astrologer.name }}</h5>
