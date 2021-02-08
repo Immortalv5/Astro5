@@ -1,8 +1,61 @@
-{% extends '../Astrology.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html>
 
-{% block body_block %}
+  <head>
+    <meta charset="utf-8" />
+    <title>Wallet</title>
+    <link rel="stylesheet" href="{% static 'css/wallet.css' %}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/index.css'%}"/>
+    <link rel="stylesheet" href="{% static 'css/login.css'%}"/>
+    <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
+  </head>
 
-  <h1> Pay </h1>
-  <p> Your payment is wasted. </p>
 
-{% endblock %}
+
+  <body>
+    <nav class="navbar masthead nav-masthead bgg text-light move">
+      <div class="d-flex justify-content-start">
+        <a class="fa fa-bars text-light m-auto" id="open_menu"></a>
+        <a class="mb-3 title display-4">Astro</a>
+      </div>
+      <div class="d-flex justify-content-end leftmove">
+        <a class="nav-link" href="{% url 'index' %}">Home</a>
+        <a class="nav-link mr-5" href="{% url 'book' %}">Book</a>
+
+      </div>
+    </nav>
+    <div class ='modal-back' id='main'>
+      <div class="container">
+        <div class="iphone">
+          <a class="close" href = '{% url "index" %}' style = 'z-index:4;'>&times;</a>
+          <div class="header">
+            <div class="header-summary">
+              <div class="summary-text" style = 'font-size:30px;'>
+                Transaction Failed
+              </div>
+              <div class="summary-balance">
+              </div>
+            </div>
+          </div>
+          <div class="content">
+            <div class="upper-row">
+              <div class="card-item">
+                <span style = 'font-size: 20px;'> Amount </span>
+                {{ AMOUNT }}
+              </div>
+            </div>
+            <div class="lower-row">
+              <div class = 'card-item'>
+                <span style = 'font-size: 30px;'> Order Number </span>
+                <span style = 'font-size: 20px;'> {{ ORDER_ID }} </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

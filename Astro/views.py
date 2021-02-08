@@ -181,9 +181,11 @@ def callback(request):
                 paytm_checksum = value[0]
             else:
                 paytm_params[key] = str(value[0])
+        received_data['AMOUNT'] = paytm_params['TXNAMOUNT']
+        received_data['ORDER_ID'] = paytm_params['ORDERID']
         # Verify checksum
         is_valid_checksum = verify_checksum(paytm_params, settings.PAYTM_SECRET_KEY, str(paytm_checksum))
-        if is_valid_checksum:
+        if is_valid_checksum and paytm_params['STATUS'] == 'TXN_SUCCESS':
             received_data['message'] = "Checksum Matched"
             transaction = get_object_or_404(Transaction, order_id = received_data['ORDERID'][0])
             wallet = get_object_or_404(Wallet, user = transaction.made_by)
@@ -191,12 +193,9 @@ def callback(request):
             transaction.success = True
             transaction.save()
             received_data['WALLET_AMOUNT'] = wallet.current_balance
-            received_data['AMOUNT'] = transaction.amount
-            received_data['ORDER_ID'] = transaction.order_id
-            return render(request, 'payments/callback.html', context=received_data)
         else:
             received_data['message'] = "Checksum Mismatched"
-            return render(request, 'payments/callback.html', context=received_data)
+            return render(request, 'payments/cancelled.html', context=received_data)
         return render(request, 'payments/callback.html', context=received_data)
 
 ##################################################################################################
