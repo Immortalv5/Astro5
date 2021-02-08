@@ -21,42 +21,48 @@
     <div class="modal-back text-light">
       <div class="modal-content animate bgg">
         <a class="close" href = '/'>&times;</a>
-        <h2 style="text-align:center; padding: 1.5rem;">Astrologer Registration</h2>
-        <div class="card-body" style="border-left: 1px solid #999;">
-          <form action="" method="POST" class = 'inside' enctype="multipart/form-data">
-            <div class="card-body" style="text-align:right; padding-right: 2rem;">
-              {% csrf_token %}
-              <div>
-                {{profile_form.name}}
-                {{profile_form.name.errors}}
+        <div class="d-flex" style = 'text-align: center;'>
+          <div class="col-md-5 p-0" style="max-width: 350px;">
+            <img src="{% static 'img/side_img_1.jpg'%}" class="card-img"  style= 'opacity:0.8;'>
+          </div>
+          <div class="col-md-7" style = 'text-align: center; margin:auto;'>
+          <h2 style="text-align:center; padding: 1.5rem;">Astrologer Registration</h2>
+          <div class="card-body">
+            <form action="" method="POST" class = 'inside' enctype="multipart/form-data">
+              <div class="card-body" style="text-align:left; padding-right: 2rem;">
+                {% csrf_token %}
+                <div>
+                  {{profile_form.name}}
+                  {{profile_form.name.errors}}
+                </div>
+                <div>
+                  {{profile_form.phone_number}}
+                  <p>{{profile_form.phone_number.errors}}</p>
+                </div>
+                <div>
+                  {{profile_form.XP}}
+                  {{profile_form.XP.errors}}
+                </div>
+                <div>
+                  {{profile_form.rate_per_min}}
+                  {{profile_form.rate_per_min.errors}}
+                </div>
+                <div>
+                  {{profile_form.profile_pic}}
+                </div>
+                <div class = 'pb-3'>
+                  {{profile_form.language}}
+                  {{profile_form.language.errors}}
+                </div>
+                <div>
+                  {{profile_form.captcha}}
+                </div>
+                <div>
+                  <button class="p-2 mt-4 bg-light" name = 'submit' value = 'Submit'>Submit</button>
+                </div>
               </div>
-              <div>
-                {{profile_form.phone_number}}
-                <p>{{profile_form.phone_number.errors}}</p>
-              </div>
-              <div>
-                {{profile_form.XP}}
-                {{profile_form.XP.errors}}
-              </div>
-              <div>
-                {{profile_form.rate_per_min}}
-                {{profile_form.rate_per_min.errors}}
-              </div>
-              <div>
-                {{profile_form.profile_pic}}
-              </div>
-              <div class = 'pb-3'>
-                {{profile_form.language}}
-                {{profile_form.language.errors}}
-              </div>
-              <div>
-                {{profile_form.captcha}}
-              </div>
-              <div>
-                <button class="p-2 mt-4 bg-light" name = 'submit' value = 'Submit'>Submit</button>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
