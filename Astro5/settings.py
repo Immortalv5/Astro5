@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'captcha',
     'whitenoise.runserver_nostatic',
-    'rest_framework',
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.auth',
