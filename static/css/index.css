@@ -5,6 +5,7 @@
 
 body{
   font-size: 1.5vmin;
+  background-image: url("../img/background.jfif") ;
   background-color: var(--bgcolor);
   user-select: none;
 }

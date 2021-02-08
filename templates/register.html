@@ -4,44 +4,51 @@
 
 <div class="modal-back text-light">
   <div class="modal-content animate bgg">
-    <a class="close" href = '/'>&times;</a>
-    <h2 style="text-align:center; padding: 1.5rem;">Register</h2>
-    <div class="part col-12 card-body" style="border-left: 1px solid #999;">
-      <form action="" method="POST" class = 'inside' enctype="multipart/form-data">
-        <div class="card-body" style="text-align:right; padding-right: 2rem;">
-          {% csrf_token %}
-          <div style = "width: 100%;">
-            {{profile_form.profile_name}}
-            {{profile_form.profile_name.errors}}
-          </div>
-          <div>
-            {{user_form.username}}
-            {{user_form.username.errors}}
-          </div>
-          <div>
-            {{profile_form.phone_number}}
-            {{profile_form.phone_number.errors}}
-          </div>
-          <div>
-            {{user_form.password}}
-            {{user_form.password.errors}}
-          </div>
-          <div>
-            {{profile_form.profile_pic}}
-          </div>
-          <div>
-            {{ profile_form.non_field_errors }}
-            {{ user_form.non_field_errors }}
-          </div>
-          <div>
-            {{profile_form.captcha}}
-          </div>
-          <div>
-            <a class="mt-4 bg-light btn-light" href="{% url 'Astro:user_login' %}">Login</a>
-            <button class="p-2 mt-4 bg-light" name = 'submit' value = 'register'>Register</button>
-          </div>
+    <a class="close" href = '{% url "index" %}'>&times;</a>
+    <div class="d-flex">
+      <div class="col-md-5 p-0" style="max-width: 350px;">
+        <img src="{% static 'img/side_img_1.jpg'%}" class="card-img" style= 'opacity:0.8;'>
+      </div>
+      <div class="col-md-7" style = 'text-align: center; margin:auto;'>
+        <div class="card-body m-auto">
+        <h2 style="text-align:left; padding: 1.5rem;">Register</h2>
+          <form action="" method="POST" class = 'inside' enctype="multipart/form-data">
+            <div class="card-body" style="text-align:right;">
+              {% csrf_token %}
+              <div style = "width: 100%;">
+                {{profile_form.profile_name}}
+                {{profile_form.profile_name.errors}}
+              </div>
+              <div>
+                {{user_form.username}}
+                {{user_form.username.errors}}
+              </div>
+              <div>
+                {{profile_form.phone_number}}
+                {{profile_form.phone_number.errors}}
+              </div>
+              <div>
+                {{user_form.password}}
+                {{user_form.password.errors}}
+              </div>
+              <div>
+                {{profile_form.profile_pic}}
+              </div>
+              <div>
+                {{ profile_form.non_field_errors }}
+                {{ user_form.non_field_errors }}
+              </div>
+              <div>
+                {{profile_form.captcha}}
+              </div>
+              <div>
+                <a class="mt-4 bg-light btn-light" href="{% url 'Astro:user_login' %}">Login</a>
+                <button class="p-2 mt-4 bg-light" name = 'submit' value = 'register'>Register</button>
+              </div>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>

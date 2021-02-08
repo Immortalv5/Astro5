@@ -4,28 +4,37 @@
 
 <div class="modal-back text-light">
   <div class="modal-content animate bgg">
-    <a class="close" href = '/'>&times;</a>
-    <h2 style="text-align:center; padding: 1.5rem;">Login</h2>
-    <form action="" method="POST" class = 'inside'>
-      <div class="card-body" style="text-align:right; padding-left: 2rem;">
-        {% csrf_token %}
-        <div>
-          <input type="text" name="login_user" autocomplete="off"/>
-        </div>
-        <div>
-          <input type="password" name="login_pass" autocomplete="off"/>
-        </div>
-        <div>
-          {% for message in messages %}
-            <p> {{message}} </p>
-          {% endfor %}
-        </div>
-        <div>
-          <a class="mt-4 bg-light btn-light" href = '{% url "Astro:register" %}'>Register</a>
-          <button class="p-2 mt-4 bg-light" name = 'submit' value = 'login'>Login</button>
+    <a class="close" href = '{% url "index" %}'>&times;</a>
+    <div class="d-flex" style = 'text-align: center;'>
+      <div class="col-md-5 p-0" style="max-width: 350px;">
+        <img src="{% static 'img/side_img_1.jpg'%}" class="card-img"  style= 'opacity:0.8;'>
+      </div>
+      <div class="col-md-7" style = 'text-align: center; margin:auto;'>
+        <div class="card-body m-auto">
+          <h2 style="text-align:left; padding: 1.5rem;">Login</h2>
+          <form action="" method="POST" class = 'inside'>
+            <div class="card-body" style="text-align:right;">
+              {% csrf_token %}
+              <div>
+                <input type="text" name="login_user" autocomplete="off"/>
+              </div>
+              <div>
+                <input type="password" name="login_pass" autocomplete="off"/>
+              </div>
+              <div>
+                {% for message in messages %}
+                  <p> {{message}} </p>
+                {% endfor %}
+              </div>
+              <div>
+                <a class="mt-4 bg-light btn-light" href = '{% url "Astro:register" %}'>Register</a>
+                <button class="p-2 mt-4 bg-light" name = 'submit' value = 'login'>Login</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-    </form>
+    </div>
   </div>
 </div>
 

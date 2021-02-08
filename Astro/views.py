@@ -132,7 +132,11 @@ def initiate_payment(request):
     user_info = UserProfileInfo.objects.get(user = request.user)
     context = {'username': user['username'].capitalize(), 'user': user, 'wallet': wallet, 'info': user_info}
     if request.method == 'POST':
-        amount = float(request.POST.get('amount'))
+        try:
+            amount = float(request.POST.get('amount'))
+        except:
+            messages.error(request, 'Add a Valid Amount')
+            return render(request, 'Wallet.html', context = context)
         if amount <= 0:
             messages.error(request, 'Add some money')
             return render(request, 'Wallet.html', context = context)
