@@ -26,29 +26,28 @@
           <form action="" method="POST" class = 'inside' enctype="multipart/form-data">
             <div class="card-body" style="text-align:right; padding-right: 2rem;">
               {% csrf_token %}
-              <div  style = "width: 100%;">
-                {{profile_form.username}}
-              </div>
               <div>
                 {{profile_form.name}}
+                {{profile_form.name.errors}}
               </div>
               <div>
                 {{profile_form.phone_number}}
+                <p>{{profile_form.phone_number.errors}}</p>
               </div>
               <div>
                 {{profile_form.XP}}
-              </div>
-              <div>
-                {{profile_form.language}}
-              </div>
-              <div>
-                {{profile_form.rate}}
+                {{profile_form.XP.errors}}
               </div>
               <div>
                 {{profile_form.rate_per_min}}
+                {{profile_form.rate_per_min.errors}}
               </div>
               <div>
                 {{profile_form.profile_pic}}
+              </div>
+              <div class = 'pb-3'>
+                {{profile_form.language}}
+                {{profile_form.language.errors}}
               </div>
               <div>
                 {{profile_form.captcha}}
@@ -64,18 +63,17 @@
   </body>
 <script>
 var form_fields = document.getElementsByTagName('input')
-form_fields[1].placeholder = 'Username'
-form_fields[2].placeholder = 'Full Name'
-form_fields[3].placeholder = 'Phone Number'
-form_fields[4].placeholder = 'Experience'
-form_fields[5].placeholder = 'Language'
-form_fields[6].placeholder = 'Rate'
-form_fields[7].placeholder = 'Rate per Minute'
-form_fields[8].placeholder = 'Photo'
-console.log(form_fields);
+form_fields[1].placeholder = 'Full Name'
+form_fields[2].placeholder = 'Phone Number'
+form_fields[2].value = '+91'
+form_fields[3].placeholder = 'Experience'
+//form_fields[4].placeholder = 'Language'
+form_fields[4].placeholder = 'Rate per Minute'
+form_fields[5].placeholder = 'Photo'
+
 for (var field in form_fields){
   form_fields[field].className += 'form-control'
-  console.log(field);
+  form_fields[field].autocomplete = 'off'
   form_fields[field].style.width = '100%'
 }
 </script>

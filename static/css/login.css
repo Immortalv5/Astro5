@@ -111,3 +111,9 @@
   from {transform: scale(0)}
   to {transform: scale(1)}
 }
+
+/* Errors */
+
+li{
+  list-style-type: none;
+}

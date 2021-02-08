@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.core.validators import MinValueValidator
+from decimal import *
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.db import IntegrityError
@@ -20,6 +22,7 @@ class UserProfileInfo(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     profile_name = models.CharField(max_length=100)
     profile_pic = models.ImageField(upload_to='profile_pic',blank=True)
+    phone_number = PhoneNumberField()
 
     def __str__(self):
         return self.user.username
@@ -27,7 +30,7 @@ class UserProfileInfo(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['user'],
+                fields=['user', 'phone_number'],
                 name='unique_profile'
             )
         ]
@@ -42,7 +45,7 @@ class Wallet(models.Model):
 
     # This stores the wallet's current balance. Also acts
     # like a cache to the wallet's balance as well.
-    current_balance = models.DecimalField(max_digits=10, decimal_places=2, default = 0)
+    current_balance = models.DecimalField(max_digits=10, decimal_places=2, default = 0, validators=[MinValueValidator(Decimal('0'))])
 
     # The date/time of the creation of this wallet.
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null = True)
@@ -113,7 +116,7 @@ class Transaction(models.Model):
     made_by = models.ForeignKey(User, related_name='transactions',
                                 on_delete=models.CASCADE)
     made_on = models.DateTimeField(auto_now_add=True)
-    amount = models.IntegerField()
+    amount = models.DecimalField(max_digits=10, decimal_places=2, default = 0,validators=[MinValueValidator(Decimal('0.01'))])
     order_id = models.CharField(unique=True, max_length=500, null=True, blank=True)
     checksum = models.CharField(max_length=500, null=True, blank=True)
     success = models.BooleanField(default= False)
@@ -136,16 +139,19 @@ class Transaction(models.Model):
 
 #Creating Astrologers
 class Astrologers(models.Model):
+
+    LANGUAGE_LIST = [('Telugu', 'Telugu'), ("Tamil", 'Tamil'), ('Kannada', 'Kannada'), ('Malayalam', 'Malayalam'), ('Marathi', 'Marathi')]
+
     username = models.CharField(max_length = 30)
     name = models.CharField(max_length = 100)
     XP = models.FloatField(default = 0)
-    language = models.CharField(max_length = 100)
+    language = models.CharField(max_length = 100, choices = LANGUAGE_LIST)
     phone_number = PhoneNumberField()
-    rate = models.FloatField(default = 300)
+    profile_pic = models.ImageField(upload_to='astrologers_pic',blank=True)
     rate_per_min = models.FloatField(default = 20)
 
     approved = models.BooleanField(default= False)
-    profile_pic = models.ImageField(upload_to='astrologers_pic',blank=True)
+    joined_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
        constraints = [

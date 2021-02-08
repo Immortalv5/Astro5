@@ -19,6 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 STATIC_DIR = os.path.join(BASE_DIR,'static')
 MEDIA_DIR = os.path.join(BASE_DIR,'media')
+RES_DIR = os.path.join(BASE_DIR,'res')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -43,7 +44,6 @@ DEBUG = bool(int(os.environ['DEBUG']))
 ALLOWED_HOSTS = ['127.0.0.1', 'astro5.herokuapp.com', 'localhost']
 
 # Application definition
-
 INSTALLED_APPS = [
     'Astro',
     'phonenumber_field',
@@ -117,6 +117,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length' : 8
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -127,6 +130,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 SECURE_SSL_REDIRECT = bool(int(os.environ['SSL']))
+CSRF_COOKIE_SECURE = bool(int(os.environ['SSL']))
+SESSION_COOKIE_SECURE = bool(int(os.environ['SSL']))
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -152,6 +157,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+RES_ROOT = RES_DIR
+RES_URL = '/res/'
 
 LOGIN_URL = '/Astro/user_login/'
 

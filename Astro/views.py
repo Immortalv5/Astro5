@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -17,6 +17,7 @@ from PIL import Image
 from .checksum import generate_checksum, verify_checksum
 
 import os
+import json
 
 ##################################################################################################
 # Pages
@@ -29,8 +30,9 @@ def index(request):
 
 @login_required
 def book(request):
+    usernumber = UserProfileInfo.objects.filter(user = request.user)
     astrologers = Astrologers.objects.all()
-    return render(request, 'Book.html', {'username': request.user.username.capitalize(), 'astrologers': astrologers})
+    return render(request, 'Book.html', {'username': request.user.username.capitalize(), 'astrologers': astrologers, 'user_number': usernumber.values()[0]})
 
 ##################################################################################################
 # User Authentication
@@ -57,10 +59,11 @@ def register(request):
             registered = True
             return HttpResponseRedirect(reverse('Astro:user_login'))
         else:
-            print(user_form.errors,profile_form.errors)
-            messages.error(request, user_form.errors)
-            messages.error(request, profile_form.errors)
-            return HttpResponseRedirect(reverse('Astro:register'))
+            print(user_form.errors,':',profile_form.errors)
+            return render(request,'register.html',
+                                  {'user_form':user_form,
+                                   'profile_form':profile_form,
+                                   'registered':registered})
     else:
         user_form = CreateUserForm()
         profile_form = UserProfileInfoForm()
@@ -83,7 +86,7 @@ def user_login(request):
         else:
             print("Someone tried to login and failed.")
             print("They used username: {} and password: {}".format(username,password))
-            messages.error(request, 'Either thy Username or Password is incorrect.')
+            messages.error(request, 'Either Username or Password is incorrect.')
             return HttpResponseRedirect(reverse('Astro:user_login'))
     else:
         return render(request, 'login.html', {})
@@ -101,15 +104,17 @@ def astrologer_registration(request):
     if request.method == 'POST':
         profile_form = AstrologerProfileInfoForm(request.POST, request.FILES)
         if profile_form.is_valid():
-            profile = profile_form.save(commit=False)
+            profile = profile_form.save()
             if 'profile_pic' in request.FILES:
                 print('found it')
                 profile.profile_pic = request.FILES['profile_pic']
+            profile.username = str('Shastri_') + str(profile.joined_on.strftime('%Y%m%d_')) + str(profile.id)
             profile.save()
-            return HttpResponseRedirect(reverse('index'))
+            return redirect('index')
         else:
-            messages.error(request, 'The Username is Occupied.')
-            return HttpResponseRedirect(reverse('Astro:astrologer_registration'))
+            print(profile_form.errors)
+            return render(request,'astrologer_register.html',
+                                  {'profile_form':profile_form})
     else:
         profile_form = AstrologerProfileInfoForm()
     return render(request,'astrologer_register.html',
@@ -122,41 +127,44 @@ def astrologer_registration(request):
 @csrf_exempt
 @login_required
 def initiate_payment(request):
-    if request.method == "GET":
-        user = list(User.objects.filter(username = request.user).values())[0]
-        wallet = list(Wallet.objects.filter(user = request.user).values())[0]
-        user_info = UserProfileInfo.objects.get(user = request.user)
-        context = {'username': user['username'].capitalize(), 'user': user, 'wallet': wallet, 'info': user_info}
-        return render(request, 'Wallet.html', context = context)
+    user = list(User.objects.filter(username = request.user).values())[0]
+    wallet = list(Wallet.objects.filter(user = request.user).values())[0]
+    user_info = UserProfileInfo.objects.get(user = request.user)
+    context = {'username': user['username'].capitalize(), 'user': user, 'wallet': wallet, 'info': user_info}
     if request.method == 'POST':
-        print(list(User.objects.filter(username = request.user)))
-        amount = int(request.POST.get('amount'))
+        amount = float(request.POST.get('amount'))
+        if amount <= 0:
+            messages.error(request, 'Add some money')
+            return render(request, 'Wallet.html', context = context)
         transaction = Transaction.objects.create(made_by=request.user, amount=amount)
-    transaction.save()
-    merchant_key = settings.PAYTM_SECRET_KEY
+        transaction.save()
+        merchant_key = settings.PAYTM_SECRET_KEY
 
-    params = (
-        ('MID', settings.PAYTM_MERCHANT_ID),
-        ('ORDER_ID', str(transaction.order_id)),
-        ('CUST_ID', str(transaction.made_by.email)),
-        ('TXN_AMOUNT', str(transaction.amount)),
-        ('CHANNEL_ID', settings.PAYTM_CHANNEL_ID),
-        ('WEBSITE', settings.PAYTM_WEBSITE),
-        # ('EMAIL', request.user.email),
-        # ('MOBILE_N0', '9911223388'),
-        ('INDUSTRY_TYPE_ID', settings.PAYTM_INDUSTRY_TYPE_ID),
-        ('CALLBACK_URL', str(os.environ['HOST']) + '/callback/'),
-        # ('PAYMENT_MODE_ONLY', 'NO'),
-    )
+        params = (
+            ('MID', settings.PAYTM_MERCHANT_ID),
+            ('ORDER_ID', str(transaction.order_id)),
+            ('CUST_ID', str(transaction.made_by.email)),
+            ('TXN_AMOUNT', str(transaction.amount)),
+            ('CHANNEL_ID', settings.PAYTM_CHANNEL_ID),
+            ('WEBSITE', settings.PAYTM_WEBSITE),
+            # ('EMAIL', request.user.email),
+            # ('MOBILE_N0', '9911223388'),
+            ('INDUSTRY_TYPE_ID', settings.PAYTM_INDUSTRY_TYPE_ID),
+            ('CALLBACK_URL', str(os.environ['HOST']) + '/callback/'),
+            # ('PAYMENT_MODE_ONLY', 'NO'),
+        )
 
-    paytm_params = dict(params)
-    checksum = generate_checksum(paytm_params, merchant_key)
+        paytm_params = dict(params)
+        checksum = generate_checksum(paytm_params, merchant_key)
 
-    transaction.checksum = checksum
-    transaction.save()
+        transaction.checksum = checksum
+        transaction.save()
 
-    paytm_params['CHECKSUMHASH'] = checksum
-    return render(request, 'redirect.html', context=paytm_params)
+        paytm_params['CHECKSUMHASH'] = checksum
+        return render(request, 'redirect.html', context=paytm_params)
+
+    context = {'username': user['username'].capitalize(), 'user': user, 'wallet': wallet, 'info': user_info}
+    return render(request, 'Wallet.html', context = context)
 
 @csrf_exempt
 def callback(request):

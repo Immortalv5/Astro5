@@ -78,7 +78,7 @@
         </style>
         <div class="card" style="margin-bottom: 1.5rem; height: 200px; width: 300px">
           <div class="icon">
-            <a class = 'fa fa-phone' style = 'font-size: 14px; margin-right:0 !important; padding:0;text-decoration:none;' href = "tel:{{ astrologer.phone_number }}"></a>
+            <a class = 'fa fa-phone' style = 'font-size: 14px; margin-right:0 !important; padding:0;text-decoration:none;' onclick = 'call_to({{ astrologer.phone_number }}, {{ user_number.phone_number }})'></a>
           </div>
           <div class="icon-left">
             {% if astrologer.profile_pic %}
@@ -88,10 +88,9 @@
             {% endif %}
           </div>
           <div class="icon-down">
-            <h5 class="font-weight-bold" style="font-size: 1.5vmin;">{{ astrologer.name }}</h5>
+            <h5 class="pl-1 font-weight-bold" style="font-size: 1.5vmin;">{{ astrologer.name }}</h5>
             <p>{{ astrologer.language }}</p>
-            <p class="mb-2">{{ astrologer.XP}} Experience</p>
-            <p class="font-weight-bold">&#8377; {{astrologer.rate}} </p>
+            <p class="mb-2">Exp: {{ astrologer.XP }} </p>
           </div>
           <div class="icon-down-right">
             <p class="font-weight-bold">&#8377; {{astrologer.rate_per_min}} / min</p>
@@ -102,7 +101,17 @@
       {% endfor %}
     </div>
   </body>
-
+  <script src="https://developer.vox-cpaas.com/js/jquery.min.js"></script>
+  <script src="https://developer.vox-cpaas.com/js/bootstrap.min.js"></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="https://developer.vox-cpaas.com/js/protobuf.min.js"></script>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.154.0.min.js"></script>
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+  <script src="https://developer.vox-cpaas.com/js/sha256.js"></script>
+  <script src="https://developer.vox-cpaas.com/js/calmsdk-001.js"></script>
+  <script src="https://developer.vox-cpaas.com/js/wrtc.js"></script>
+  <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+  <script src="{% static 'js/call_to_customer.js' %}"></script>
   <script>
   document.querySelector("#open_menu").addEventListener('click', openMenu);
   document.querySelector("#main").addEventListener('click', closeMenu);

@@ -64,6 +64,11 @@
               <input name="amount" value="50" style="text-align:center;" autocomplete = 'off'><br/>
             </div>
           </div>
+          <div class="card-item">
+            {% for message in messages %}
+              <p> {{message}} </p>
+            {% endfor %}
+          </div>
           <div class="lower-row">
             <div class="icon-item">
               <button type="submit" name="submit" value="Submit">Pay</button>

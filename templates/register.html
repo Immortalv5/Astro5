@@ -12,23 +12,29 @@
           {% csrf_token %}
           <div style = "width: 100%;">
             {{profile_form.profile_name}}
+            {{profile_form.profile_name.errors}}
           </div>
           <div>
             {{user_form.username}}
+            {{user_form.username.errors}}
           </div>
           <div>
-            {{user_form.email}}
+            {{profile_form.phone_number}}
+            {{profile_form.phone_number.errors}}
           </div>
           <div>
             {{user_form.password}}
+            {{user_form.password.errors}}
           </div>
           <div>
             {{profile_form.profile_pic}}
           </div>
           <div>
-            {% for message in messages %}
-              <p> {{message}} </p>
-            {% endfor %}
+            {{ profile_form.non_field_errors }}
+            {{ user_form.non_field_errors }}
+          </div>
+          <div>
+            {{profile_form.captcha}}
           </div>
           <div>
             <a class="mt-4 bg-light btn-light" href="{% url 'Astro:user_login' %}">Login</a>
@@ -44,14 +50,18 @@
 var form_fields = document.getElementsByTagName('input')
 form_fields[1].placeholder = 'Full Name'
 form_fields[2].placeholder = 'Username'
-form_fields[3].placeholder = 'Email'
+form_fields[3].placeholder = 'Phone Number'
+form_fields[3].value = '+91'
 form_fields[4].placeholder = 'Password'
 form_fields[5].placeholder = 'Profile Picture'
 
 for (var field in form_fields){
   form_fields[field].className += 'form-control'
   form_fields[field].style.width = '100%'
+  form_fields[field].autocomplete = 'off'
 }
+
+
 </script>
 
 {% endblock %}
