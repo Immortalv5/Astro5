@@ -42,7 +42,7 @@ PAYPAL_TEST = True
 AUTHKEY = os.environ['AUTHKEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False#bool(int(os.environ['DEBUG']))
+DEBUG = bool(int(os.environ['DEBUG']))
 
 ALLOWED_HOSTS = ['127.0.0.1', 'astro5.herokuapp.com', 'localhost']
 
