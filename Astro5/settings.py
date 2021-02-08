@@ -38,6 +38,9 @@ PAYTM_INDUSTRY_TYPE_ID = 'Retail'
 PAYPAL_RECEIVER_EMAIL = 'sb-akoqb4861121@business.example.com'
 PAYPAL_TEST = True
 
+#
+AUTHKEY = os.environ['AUTHKEY']
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ['DEBUG']))
 
@@ -49,6 +52,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'captcha',
     'whitenoise.runserver_nostatic',
+    'rest_framework',
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.auth',

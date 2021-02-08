@@ -33,7 +33,7 @@
   <div class ='modal-back'>
   <div class="animate container">
     <div class="iphone">
-      <a class="close" href = '/' style = 'z-index:4;'>&times;</a>
+      <a class="close" href = '{% url "index" %}' style = 'z-index:4;'>&times;</a>
       <div class="header">
         <div class="header-summary">
           <div class="summary-text">
@@ -52,30 +52,26 @@
         </div>
       </div>
 
-      <form method="post">
-            {% csrf_token %}
-
-
-      <div class="content">
-        <div class="card">
-          <div class="upper-row">
+        <form method="post">
+          {% csrf_token %}
+          <div class="content">
+            <div class="upper-row">
+              <div class="card-item">
+                <span>Top-Up</span>
+                <input name="amount" value="50" style="text-align:center;" autocomplete = 'off'><br/>
+              </div>
+            </div>
             <div class="card-item">
-              <span>Top-Up</span>
-              <input name="amount" value="50" style="text-align:center;" autocomplete = 'off'><br/>
+              {% for message in messages %}
+                <p> {{message}} </p>
+              {% endfor %}
+            </div>
+            <div class="lower-row">
+              <div class="icon-item">
+                <button type="submit" name="submit" value="Submit">Pay</button>
+              </div>
             </div>
           </div>
-          <div class="card-item">
-            {% for message in messages %}
-              <p> {{message}} </p>
-            {% endfor %}
-          </div>
-          <div class="lower-row">
-            <div class="icon-item">
-              <button type="submit" name="submit" value="Submit">Pay</button>
-            </div>
-            </div>
-          </div>
-        </div>
         </form>
       </div>
     </div>

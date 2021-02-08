@@ -1,63 +1,60 @@
 {% load static %}
-<html>
-  <head>
-    <title>Callback</title>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="{% static 'css/astrology.css' %}"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="{% static 'css/index.css'%}"/>
-    <link rel="stylesheet" href="{% static 'css/login.css'%}"/>
-    <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
-    <script>
-    function setCookie(cname, cvalue, exdays) {
-      var date = new Date();
-      date.setTime(date.getTime() + (exdays*24*60*60*1000));
-      var expires = "expires="+ date.toUTCString();
-      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-      console.log(document.cookie);
-    }
-    function openMenu(){
-      document.querySelector(".menu").style.width = "250px";
-      document.querySelector(".menu").style.visibility = "visible";
-      document.querySelector('.move').style.left = "250px";
-      document.querySelector('.leftmove').style.right = "250px";
-    }
-    function closeMenu(){
-    document.querySelector(".menu").style.width = "0px";
-    document.querySelector(".menu").style.visibility = "hidden";
-    document.querySelector('.move').style.left = "0px";
-    document.querySelector('.leftmove').style.right = "0px";
-    }
-    </script>
-  </head>
-  <body>
-    <nav class="navbar masthead nav-masthead bgg text-light move">
-      <div class="d-flex justify-content-start">
-        <a class="fa fa-bars text-light m-auto" href = '{% url "initiate_payment" %}'></a>
-        <a class="mb-3 title display-4">Astro</a>
-      </div>
-    </nav>
 
-  <div style="padding-top:10rem; text-align:center;">
-    <h1> Pay </h1>
-    <p> Your payment is a Success. </p>
-      <h2>Callback Messsage: </h2>                    <br>
-      <h3> Checksum Verification: {{ message }} </h3> <br>
-      MID: {{ MID }}                                  <br>
-      TXNID: {{ TXNID }}                              <br>
-      ORDERID: {{ ORDERID }}                          <br>
-      BANKTXNID: {{ BANKTXNID }}                      <br>
-      TXNAMOUNT: {{ TXNAMOUNT }}                      <br>
-      CURRENCY: {{ CURRENCY }}                        <br>
-      <h3> STATUS: {{ STATUS }} </h3>                 <br>
-      RESPCODE: {{ RESPCODE }}                        <br>
-      RESPMSG: {{ RESPMSG }}                          <br>
-      TXNDATE: {{ TXNDATE }}                          <br>
-      GATEWAYNAME: {{ GATEWAYNAME }}                  <br>
-      BANKNAME: {{ BANKNAME }}                        <br>
-      BIN_NAME: {{ BIN_NAME }}                        <br>
-      PAYMENTMODE: {{ PAYMENTMODE }}                  <br>
-      CHECKSUMHASH: {{ CHECKSUMHASH }}
+<head>
+  <title>Wallet</title>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="{% static 'css/wallet.css' %}"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="{% static 'css/index.css'%}"/>
+  <link rel="stylesheet" href="{% static 'css/login.css'%}"/>
+  <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
+</head>
+
+
+
+<body>
+  <nav class="navbar masthead nav-masthead bgg text-light move">
+    <div class="d-flex justify-content-start">
+      <a class="fa fa-bars text-light m-auto" id="open_menu"></a>
+      <a class="mb-3 title display-4">Astro</a>
+    </div>
+    <div class="d-flex justify-content-end leftmove">
+      <a class="nav-link" href="{% url 'index' %}">Home</a>
+      <a class="nav-link mr-5" href="{% url 'book' %}">Book</a>
+
+    </div>
+  </nav>
+  <div class ='modal-back'>
+    <div class="container">
+      <div class="iphone">
+        <a class="close" href = '{% url "index" %}' style = 'z-index:4;'>&times;</a>
+        <div class="header">
+          <div class="header-summary">
+            <div class="summary-text">
+              My Balance
+            </div>
+            <div class="summary-balance">
+              &#8377; {{ WALLET_AMOUNT }}
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="upper-row">
+            <div class="card-item">
+              <span style = 'font-size: 20px;'> Amount Added </span>
+              &#8377; {{ AMOUNT }}
+            </div>
+          </div>
+          <div class="lower-row">
+            <div class = 'card-item'>
+              <span style = 'font-size: 30px;'> Order Number </span>
+              <span style = 'font-size: 20px;'>{{ ORDER_ID }}</span>
+              <img src = '{% static "img/verified.gif" %}' height = 100px width = 125px class = 'animate'  style = 'margin:auto; text-align:center;'>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </body>

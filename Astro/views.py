@@ -32,7 +32,7 @@ def index(request):
 def book(request):
     usernumber = UserProfileInfo.objects.filter(user = request.user)
     astrologers = Astrologers.objects.all()
-    return render(request, 'Book.html', {'username': request.user.username.capitalize(), 'astrologers': astrologers, 'user_number': usernumber.values()[0]})
+    return render(request, 'Book.html', {'username': request.user.username.capitalize(), 'astrologers': astrologers, 'user_number': usernumber.values()[0], 'authkey': str(settings.AUTHKEY)})
 
 ##################################################################################################
 # User Authentication
@@ -190,6 +190,10 @@ def callback(request):
             wallet.deposit(transaction.amount)
             transaction.success = True
             transaction.save()
+            received_data['WALLET_AMOUNT'] = wallet.current_balance
+            received_data['AMOUNT'] = transaction.amount
+            received_data['ORDER_ID'] = transaction.order_id
+            return render(request, 'payments/callback.html', context=received_data)
         else:
             received_data['message'] = "Checksum Mismatched"
             return render(request, 'payments/callback.html', context=received_data)
@@ -198,3 +202,8 @@ def callback(request):
 ##################################################################################################
 #
 ##################################################################################################
+
+def resjson(request):
+    with open('res/iml.json') as f:
+        data = json.load(f)
+        return JsonResponse(data)
