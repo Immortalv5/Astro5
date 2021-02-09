@@ -106,7 +106,7 @@ font-family: 'Montserrat', sans-serif;
   z-index: 4;
   position: absolute;
   top: 210px;
-  margin-left:30px;
+  margin-left:40px;
   display:flex;
   flex-direction:column;
   width:85%;
@@ -131,6 +131,7 @@ font-family: 'Montserrat', sans-serif;
 }
 
 .card-item {
+  font-family: 'Montserrat', sans-serif;
   margin: 20px;
   display: flex;
   flex-direction: column;

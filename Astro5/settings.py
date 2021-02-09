@@ -133,8 +133,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 SECURE_SSL_REDIRECT = bool(int(os.environ['SSL']))
-CSRF_COOKIE_SECURE = bool(int(os.environ['SSL']))
-SESSION_COOKIE_SECURE = bool(int(os.environ['SSL']))
+CSRF_COOKIE_SECURE = True#bool(int(os.environ['SSL']))
+SESSION_COOKIE_SECURE = True#bool(int(os.environ['SSL']))
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
