@@ -1,0 +1,132 @@
+<html>
+
+<head>
+
+	<script src="https://konverz.vox-cpaas.in/js/jquery.min.js"></script>
+	<script src="https://konverz.vox-cpaas.in/js/bootstrap.min.js"></script>
+	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+	<script src="https://konverz.vox-cpaas.in/js/protobuf.min.js"></script>
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.154.0.min.js"></script>
+	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+	<script src="https://konverz.vox-cpaas.in/js/sha256.js"></script>
+	<script src="https://konverz.vox-cpaas.in/js/calmsdk-001.js"></script>
+	<script src="https://konverz.vox-cpaas.in/js/wrtc.js"></script>
+	<script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+
+	<style>
+		.online {
+			height: 25px;
+			width: 25px;
+			background-color: #0f0;
+			border-radius: 50%;
+			display: inline-block;
+		}
+
+		.offline {
+			height: 25px;
+			width: 25px;
+			background-color: #f00;
+			border-radius: 50%;
+			display: inline-block;
+		}
+	</style>
+	<script>
+
+		var callid = '', is_muted = false, is_started = false;
+
+		function pageload() { // Initializes the sdk and logs in the user.
+			CS.call.onMessage(handleCallFromIML);
+
+			// configuration parameters.
+			let config = {
+				appId: "pid_413c1c38_8bad_4539_86f3_afa7cdbdbb30"         // <----------- Update the projectid here-----------
+			};
+
+			// callback called at the end of initialization to notify success or failure.
+			function callback(ret, resp) {
+				if (ret == 200) {
+					console.log("SDK " + CS.version + " initialized ");
+
+					// Initiate login request
+					CS.login("Amar", "amarsaiteja", function (err, resp) {                   // <----------- Update the user credentials here-----------
+						if (err == 200) {
+							console.log("Login succesful");
+							document.getElementById("startbtn").disabled = false;
+						}
+						else {
+							console.log("login failed with response code " + err + " reason " + resp);
+						}
+					});
+				}
+			}
+			CS.initialize(config, callback);
+		}
+
+		function handleCallFromIML(msgType, resp) {
+			switch (msgType) {
+				case "OFFER":     /* incoming offer from remote party */
+					break;
+				case "RINGING":   /* ringing */
+					//document.getElementById("startbtn").innerHTML =  'Call';
+					break;
+				case "ANSWERED":  /* call answer */
+					// document.getElementById("startbtn").innerHTML =  'End Call';
+					break;
+				case "END":       /* call end */
+					console.log("call end");
+					document.getElementById("startbtn").innerHTML = 'Call';
+					break;
+			}
+		}
+
+		function callbackFunc(code, resp) {
+			if (code != 200) {
+				alert("call failed with response code " + code + " reason " + resp);
+			}
+			else {
+				alert("call success with response code " + code + " reason " + resp);
+			}
+		}
+		/* Initiate outbound call (call remote party) */
+		function start(destnum) {
+			console.log("destination no is:" + destnum);
+			if (is_started == false) {
+				console.log('done');
+				is_started = true;
+				callid = CS.call.startPSTNCall(destnum, "localVideo", "remoteVideo", function callbackFunc() { }, true);
+				console.log('done');
+				//document.getElementById("startbtn").innerHTML =  'End call';
+			} else {
+				/* End ongoing call */
+				document.getElementById("startbtn").innerHTML = 'Call';
+				is_started = false;
+				CS.call.end(callid, "Bye", function (ret, resp) {
+					if (ret == 200)
+						CS.call.saveRecording(callid, 'recording.wav');
+					console.log("call end successfully");
+				});
+
+			}
+		}
+		function endCall() {
+			CS.call.end(callid, "Bye", function (ret, resp) {
+				if (ret == 200)
+					//CS.call.saveRecording(callid, 'recording.wav');
+					console.log("call end successfully");
+			});
+			//CS.call.saveRecording(callid, 'recording.wav');
+		}
+
+
+
+	</script>
+</head>
+
+<body onload=pageload()>
+	<button type="button" onclick="start('+919912698891')" id="startbtn" value="Call" class="btn btn-primary pl-6 pr-6"
+		disabled>Call to +919912698891</button>
+	<!--pass the destination number as argument in start() function-->
+	<!-- <video id="localVideo" autoplay muted style="display: none;"></video>
+	<video id="remoteVideo" autoplay width="200px" height="180px" style="display: none;"></video> -->
+	<input type="button" onclick="endCall()" value="End call"></input><br />
+</body>
