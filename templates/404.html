@@ -1,0 +1,60 @@
+{% load static %}
+
+<html>
+  <head>
+    <title>Home</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
+  </head>
+  <style>
+
+  :root{
+  --bgcolor: #ffe8d6;
+  --sidecolor: #fd9644;
+  }
+
+  body{
+    background-image: url("{% static 'img/side_img.jpg' %}") ;
+    background-color: var(--bgcolor);
+    user-select: none;
+    text-decoration: none;
+  }
+
+  .animate{
+    background-color: var(--bgcolor) !important;
+    margin: 15%;
+    animation: animatezoom 0.6s;
+  }
+
+  @-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+  }
+
+  @keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+  }
+
+  .fa-arrow-right{
+    color: var(--sidecolor) !important;
+    position:absolute;
+    text-decoration:none !important;
+    top:50%;
+    right:20px;
+  }
+
+  </style>
+  <div class="containers" id="main">
+    <div class="row animate">
+      <div class="col-12">
+        <h1 class="card-title mx-3 m-5 text-danger" style="text-align: center; font-weight: 500; font-size: 120;">404</h1>
+        <h4 class="card-title m-4 text-danger" style="text-align: center;"> Your Page got lost in the Stars.</h4>
+        <h4 class="card-title m-4 text-success" style="text-align: center;"> Follow the Direction. </h4>
+        <h5><a href = '{% url "index" %}' class= 'fa fa-arrow-right'></a></h5>
+      </div>
+    </div>
+  </div>
+</html>

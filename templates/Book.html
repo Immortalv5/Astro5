@@ -10,13 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/index.css'%}"/>
     <link rel="stylesheet" href="{% static 'css/login.css'%}"/>
     <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
-    <script>function setCookie(cname, cvalue, exdays) {
-      var date = new Date();
-      date.setTime(date.getTime() + (exdays*24*60*60*1000));
-      var expires = "expires="+ date.toUTCString();
-      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-      console.log(document.cookie);
-    }
+    <script>
     function openMenu(){
       document.querySelector(".menu").style.width = "250px";
       document.querySelector(".menu").style.visibility = "visible";
@@ -78,7 +72,7 @@
         </style>
         <div class="card" style="margin-bottom: 1.5rem; height: 200px; width: 275px">
           <div class="icon">
-            <a class = 'fa fa-phone' style = 'font-size: 14px; margin-right:0 !important; padding:0;text-decoration:none;' onclick = 'call_to({{ astrologer.phone_number }}, {{ user_number.phone_number }})'></a>
+            <a class = 'fa fa-phone' style = 'font-size: 14px; margin-right:0 !important; padding:0;text-decoration:none;' onclick = 'start({{ astrologer.phone_number }})'></a>
           </div>
           <div class="icon-left">
             {% if astrologer.profile_pic %}
@@ -101,19 +95,20 @@
       {% endfor %}
     </div>
   </body>
-  <script src="https://developer.vox-cpaas.com/js/jquery.min.js"></script>
-  <script src="https://developer.vox-cpaas.com/js/bootstrap.min.js"></script>
-  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-  <script src="https://developer.vox-cpaas.com/js/protobuf.min.js"></script>
-  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.154.0.min.js"></script>
-  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
-  <script src="https://developer.vox-cpaas.com/js/sha256.js"></script>
-  <script src="https://developer.vox-cpaas.com/js/calmsdk-001.js"></script>
-  <script src="https://developer.vox-cpaas.com/js/wrtc.js"></script>
-  <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+  <script src="https://konverz.vox-cpaas.in/js/jquery.min.js"></script>
+	<script src="https://konverz.vox-cpaas.in/js/bootstrap.min.js"></script>
+	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+	<script src="https://konverz.vox-cpaas.in/js/protobuf.min.js"></script>
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.154.0.min.js"></script>
+	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+	<script src="https://konverz.vox-cpaas.in/js/sha256.js"></script>
+	<script src="https://konverz.vox-cpaas.in/js/calmsdk-001.js"></script>
+	<script src="https://konverz.vox-cpaas.in/js/wrtc.js"></script>
+	<script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+
   <script src="{% static 'js/call_to_customer.js' %}"></script>
   <script>
-  document.querySelector("#open_menu").addEventListener('click', openMenu);
-  document.querySelector("#main").addEventListener('click', closeMenu);
+    document.querySelector("#open_menu").addEventListener('click', openMenu);
+    document.querySelector("#main").addEventListener('click', closeMenu);
   </script>
 </html>

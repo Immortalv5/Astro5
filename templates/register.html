@@ -4,14 +4,14 @@
 
 <div class="modal-back text-light">
   <div class="modal-content animate bgg">
-    <a class="close" href = '{% url "index" %}'>&times;</a>
     <div class="d-flex">
-      <div class="col-md-5 p-0" style="max-width: 350px;">
-        <img src="{% static 'img/side_img_1.jpg'%}" class="card-img" style= 'opacity:0.8;'>
+      <a class="close" href = '{% url "index" %}'>&times;</a>
+      <div class="col-md-5 p-0">
+        <img src="{% static 'img/side_img_1.jpg'%}" class="card-img" style= 'opacity:0.8; width:auto;'>
       </div>
-      <div class="col-md-7" style = 'text-align: center; margin:auto;'>
+      <div class="bggg col-md-7 bgg" style = 'text-align: center; margin:auto; z-index:50; width:400px; height: 100%;'>
         <div class="card-body m-auto">
-        <h2 style="text-align:left; padding: 1.5rem;">Register</h2>
+          <h2 style="text-align:left; padding: 1.5rem;">Register</h2>
           <form action="" method="POST" class = 'inside' enctype="multipart/form-data">
             <div class="card-body" style="text-align:right;">
               {% csrf_token %}
@@ -22,6 +22,10 @@
               <div>
                 {{user_form.username}}
                 {{user_form.username.errors}}
+              </div>
+              <div>
+                {{user_form.email}}
+                {{user_form.email.errors}}
               </div>
               <div>
                 {{profile_form.phone_number}}
@@ -35,11 +39,12 @@
                 {{profile_form.profile_pic}}
               </div>
               <div>
-                {{ profile_form.non_field_errors }}
-                {{ user_form.non_field_errors }}
+                {{ profile_form.captcha }}
+                {{ profile_form.captcha.errors }}
               </div>
               <div>
-                {{profile_form.captcha}}
+                {{ profile_form.non_field_errors }}
+                {{ user_form.non_field_errors }}
               </div>
               <div>
                 <a class="mt-4 bg-light btn-light" href="{% url 'Astro:user_login' %}">Login</a>
@@ -57,14 +62,14 @@
 var form_fields = document.getElementsByTagName('input')
 form_fields[1].placeholder = 'Full Name'
 form_fields[2].placeholder = 'Username'
-form_fields[3].placeholder = 'Phone Number'
-form_fields[3].value = '+91'
-form_fields[4].placeholder = 'Password'
-form_fields[5].placeholder = 'Profile Picture'
+form_fields[3].placeholder = 'Email'
+form_fields[4].placeholder = 'Phone Number'
+form_fields[4].value = '+91'
+form_fields[5].placeholder = 'Password'
+form_fields[6].placeholder = 'Profile Picture'
 
 for (var field in form_fields){
   form_fields[field].className += 'form-control'
-  form_fields[field].style.width = '100%'
   form_fields[field].autocomplete = 'off'
 }
 

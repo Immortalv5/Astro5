@@ -20,12 +20,12 @@
     </nav>
     <div class="modal-back text-light">
       <div class="modal-content animate bgg">
-        <a class="close" href = '/'>&times;</a>
-        <div class="d-flex" style = 'text-align: center;'>
-          <div class="col-md-5 p-0" style="max-width: 350px;">
+        <div class="d-flex">
+          <a class="close" href = '{% url "index" %}'>&times;</a>
+          <div class="col-md-5 p-0">
             <img src="{% static 'img/side_img_1.jpg'%}" class="card-img"  style= 'opacity:0.8;'>
           </div>
-          <div class="col-md-7" style = 'text-align: center; margin:auto;'>
+          <div class="bgg col-md-7 bgg" style = 'text-align: center; margin:auto;  z-index:50; width: 550px;'>
           <h2 style="text-align:center; padding: 1.5rem;">Astrologer Registration</h2>
           <div class="card-body">
             <form action="" method="POST" class = 'inside' enctype="multipart/form-data">

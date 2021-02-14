@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.contrib import messages
+from django.contrib.sites.shortcuts import get_current_site
 from .models import Wallet, Transaction, UserProfileInfo, Astrologers
 #from payments.models import Transaction
 from django.contrib.auth.models import User
@@ -11,13 +12,19 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from .forms import CreateUserForm, UserProfileInfoForm, AstrologerProfileInfoForm
 from django.conf import settings
+from django.core.mail import EmailMessage
 #from paypal.standard.forms import PayPalPaymentsForm
+from django.core.mail import send_mail
 
 from PIL import Image
 from .checksum import generate_checksum, verify_checksum
 
 import os
 import json
+
+from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from .utils import token_generator
 
 ##################################################################################################
 # Pages
@@ -47,10 +54,28 @@ def register(request):
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
+            user.is_active = False
             user.save()
+
+            uid64 = urlsafe_base64_encode(force_bytes(user.pk))
+            domain = get_current_site(request).domain
+            link = reverse('Astro:activate', kwargs={'uid64': uid64, 'token': token_generator.make_token(user)})
+            activation_url = 'http://'+domain + link
+            print(activation_url)
+            email_body = "Hello " + user.username + ',\nPlease click this link for verification. \n\n' + activation_url
+
+            email = EmailMessage(
+                'Activation Mail from Astrology',
+                email_body,
+                settings.DEFAULT_FROM_EMAIL,
+                [user.email],
+            )
+            email.send(fail_silently= False)
+
             profile = profile_form.save(commit=False)
             profile.user = user
             wallet.user = user
+            
             if 'profile_pic' in request.FILES:
                 print('found it')
                 profile.profile_pic = request.FILES['profile_pic']
@@ -72,6 +97,25 @@ def register(request):
                            'profile_form':profile_form,
                            'registered':registered})
 
+def user_verification(request, uid64, token):
+    try:
+        user = User.objects.get(pk = force_text(urlsafe_base64_decode(uid64)))
+
+        if not token_generator.check_token(user, token):
+            messages.success(request, 'Already Activated')
+            return redirect('Home')
+
+        if user.is_active:
+            return redirect('Astro:user_login')
+
+        user.is_active = True
+        user.save()
+        messages.success(request, 'Account Activated')
+
+    except Exception as Exp:
+        print(Exp)
+    return render(request, 'activation.html')
+
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('login_user')
@@ -82,7 +126,8 @@ def user_login(request):
                 login(request,user)
                 return HttpResponseRedirect(reverse('index'))
             else:
-                return HttpResponse("Your account was inactive.")
+                messages.error(request, 'Account not Activated Yet.')
+                return HttpResponseRedirect(reverse('Astro:user_login'))
         else:
             print("Someone tried to login and failed.")
             print("They used username: {} and password: {}".format(username,password))

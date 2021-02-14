@@ -10,7 +10,7 @@ class CreateUserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     class Meta():
         model = User
-        fields = ('username','password')
+        fields = ('username','password', 'email', 'first_name', 'last_name')
 
     def _post_clean(self):
         super()._post_clean()
@@ -38,7 +38,7 @@ class AstrologerProfileInfoForm(forms.ModelForm):
     captcha = ReCaptchaField()
     class Meta():
         model = Astrologers
-        fields = ('name', 'XP','phone_number', 'language', 'rate_per_min', 'profile_pic', 'captcha')
+        fields = ('name', 'XP','phone_number', 'language', 'rate_per_min', 'profile_pic', 'captcha',)
 
     def _post_clean(self):
         super()._post_clean()

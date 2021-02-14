@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls import url,include
+from django.conf.urls import url, include
 from Astro import views
 from Astro.models import UserProfileInfo
 from django.contrib.auth.models import User

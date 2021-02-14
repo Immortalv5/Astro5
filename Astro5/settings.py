@@ -91,6 +91,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Astro5.wsgi.application'
 
+#Verification Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ['EMAIL_HOST']#'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']#'saitejaaoe@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']#'OPepiiOP70'
+
+DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
+
+#HTML_MESSAGE_TEMPLATE = "/templates/verify_email/html_template.html"
+
+#VERIFICATION_SUCCESS_TEMPLATE = "/templates/verify_email/success.html"
+
+#VERIFICATION_FAILED_TEMPLATE = "/templates/verify_email/failed.html"
+
+#RECAPTCHA Settings
 RECAPTCHA_PUBLIC_KEY = os.environ['CAP_SITE_KEY']
 RECAPTCHA_PRIVATE_KEY = os.environ['CAP_SECRET_KEY']
 
@@ -114,6 +131,8 @@ DATABASES['default'].update(db_from_env)
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -133,8 +152,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 SECURE_SSL_REDIRECT = bool(int(os.environ['SSL']))
-CSRF_COOKIE_SECURE = True#bool(int(os.environ['SSL']))
-SESSION_COOKIE_SECURE = True#bool(int(os.environ['SSL']))
+CSRF_COOKIE_SECURE = bool(int(os.environ['SSL']))
+SESSION_COOKIE_SECURE = bool(int(os.environ['SSL']))
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -165,5 +184,6 @@ RES_ROOT = RES_DIR
 RES_URL = '/res/'
 
 LOGIN_URL = '/Astro/user_login/'
+VERIFICATION_SUCCESS_TEMPLATE = None
 
 django_heroku.settings(locals())

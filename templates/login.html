@@ -4,12 +4,12 @@
 
 <div class="modal-back text-light">
   <div class="modal-content animate bgg">
-    <a class="close" href = '{% url "index" %}'>&times;</a>
-    <div class="d-flex" style = 'text-align: center;'>
-      <div class="col-md-5 p-0" style="max-width: 350px;">
+    <div class="d-flex">
+      <a class="close" href = '{% url "index" %}'>&times;</a>
+      <div class="col-md-5 p-0">
         <img src="{% static 'img/side_img_1.jpg'%}" class="card-img"  style= 'opacity:0.8;'>
       </div>
-      <div class="col-md-7" style = 'text-align: center; margin:auto;'>
+      <div class="bggg col-md-7 bgg" style = 'text-align: center; margin:auto; z-index:50; height: 660px; width: 400px;'>
         <div class="card-body m-auto">
           <h2 style="text-align:left; padding: 1.5rem;">Login</h2>
           <form action="" method="POST" class = 'inside'>
@@ -23,12 +23,12 @@
               </div>
               <div>
                 {% for message in messages %}
-                  <p> {{message}} </p>
+                  <p class = 'text-danger my-3'> {{message}} </p>
                 {% endfor %}
               </div>
               <div>
-                <a class="mt-4 bg-light btn-light" href = '{% url "Astro:register" %}'>Register</a>
-                <button class="p-2 mt-4 bg-light" name = 'submit' value = 'login'>Login</button>
+                <a class="mt-2 bg-light btn-light" href = '{% url "Astro:register" %}'>Register</a>
+                <button class="p-2 mt-2 bg-light" name = 'submit' value = 'login'>Login</button>
               </div>
             </div>
           </form>
