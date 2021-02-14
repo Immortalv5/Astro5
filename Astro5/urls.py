@@ -23,6 +23,7 @@ from django.contrib.auth.models import User
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
+from django.contrib.auth import views as auth_views
 
 from django.urls import path, include
 from django.contrib.auth.models import User
