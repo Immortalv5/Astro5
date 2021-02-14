@@ -5,12 +5,13 @@
 <div class="modal-back text-light">
   <div class="modal-content animate bgg">
     <div class="d-flex">
-      <a class="close" href = '{% url "index" %}'>&times;</a>
+      <a class="close place1" href = '{% url "index" %}'>&times;</a>
       <div class="col-md-5 p-0">
-        <img src="{% static 'img/side_img_1.jpg'%}" class="card-img" style= 'opacity:0.8; width:auto;'>
+        <img src="{% static 'img/side_img_1.jpg'%}" class="card-img" style= 'opacity:0.8;'>
       </div>
-      <div class="bggg col-md-7 bgg" style = 'text-align: center; margin:auto; z-index:50; width:400px; height: 100%;'>
+      <div class="bggg col-md-7 bgg" style = 'text-align: center; z-index:50;'>
         <div class="card-body m-auto">
+          <a class="close place2" href = '{% url "index" %}'>&times;</a>
           <h2 style="text-align:left; padding: 1.5rem;">Register</h2>
           <form action="" method="POST" class = 'inside' enctype="multipart/form-data">
             <div class="card-body" style="text-align:right;">

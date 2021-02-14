@@ -113,17 +113,30 @@
   to {transform: scale(1)}
 }
 
-@media only screen and (min-width: 1765px) {
+.place2{
+  display:none;
+}
+
+@media only screen and (max-width: 1765px) {
   .card-img{
-    min-width: 330px;
+    width: 330px;
     height: 100%;
   }
 
+  .place1{
+    display:none;
+  }
+
+  .place2{
+    display:block;
+  }
+
   .bggg{
-    min-width: 550px;
+    width: 550px;
     max-width: 100%;
   }
 }
+
 
 
 /* Errors */
