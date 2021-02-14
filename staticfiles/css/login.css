@@ -10,8 +10,8 @@
 }
 
 .modal-content {
-  margin: 5rem auto;
-  width: 45%;
+  margin: 1rem auto;
+  width: 50%;
   z-index: 1;
   border-radius: 0;
 }
@@ -90,6 +90,7 @@
   color: #000;
   font-size: 35px;
   font-weight: bold;
+  z-index: 100;
 }
 
 .close:hover,
@@ -111,6 +112,19 @@
   from {transform: scale(0)}
   to {transform: scale(1)}
 }
+
+@media only screen and (min-width: 1765px) {
+  .card-img{
+    min-width: 330px;
+    height: 100%;
+  }
+
+  .bggg{
+    min-width: 550px;
+    max-width: 100%;
+  }
+}
+
 
 /* Errors */
 
