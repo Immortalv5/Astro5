@@ -244,10 +244,19 @@ def callback(request):
         return render(request, 'payments/callback.html', context=received_data)
 
 ##################################################################################################
-#
+# Click to Call Requirement
 ##################################################################################################
-
+@login_required
 def resjson(request):
     with open('res/iml.json') as f:
         data = json.load(f)
         return JsonResponse(data)
+
+##################################################################################################
+# Settings
+##################################################################################################
+
+@login_required
+def settings(request):
+    if request.method == 'POST':
+        user = request.user
