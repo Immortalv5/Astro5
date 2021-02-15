@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^register/$',views.register,name='register'),
     url(r'^user_login/$',views.user_login,name='user_login'),
     url(r'^astro_register/$',views.astrologer_registration,name='astrologer_registration'),
+    url(r'^logout/$', views.user_logout, name='logout'),
     path('activate/<uid64>/<token>', views.user_verification, name = 'activate'),
 ]
 #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
