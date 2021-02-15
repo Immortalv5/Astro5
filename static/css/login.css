@@ -165,8 +165,11 @@
   }
 }
 
-
-
+@media only screen and (max-width: 770px) {
+  .card-img{
+    width:1%;
+  }
+}
 /* Errors */
 
 li{
