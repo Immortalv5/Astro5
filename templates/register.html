@@ -47,9 +47,11 @@
                 {{ profile_form.non_field_errors }}
                 {{ user_form.non_field_errors }}
               </div>
-              <div>
-                <a class="mt-4 bg-light btn-light" href="{% url 'Astro:user_login' %}">Login</a>
-                <button class="p-2 mt-4 bg-light" name = 'submit' value = 'register'>Register</button>
+              <div class = 'close-down'>
+                <a class="mt-4 bg-light btn-light" href="{% url 'Astro:user_login' %}" style = 'cursor: pointer;'>Login</a>
+              </div>
+              <div class = 'close-down-right'>
+                <button class="p-2 mt-4 bg-light" name = 'submit' value = 'register' style = 'cursor: pointer;'>Register</button>
               </div>
             </div>
           </form>

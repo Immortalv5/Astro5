@@ -1,0 +1,105 @@
+{% load static %}
+
+<html>
+<meta charset="utf-8"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+<link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
+
+<style>
+
+:root{
+--bgcolor: #ffe8d6;
+--sidecolor: #fd9644;
+}
+
+body{
+  background-image: url('{% static "img/side_img.jpg" %}') ;
+  background-color: var(--bgcolor);
+  user-select: none;
+  outline:none;
+}
+
+.bgg{
+  background-color: var(--sidecolor);
+  height:100%;
+  position:absolute;
+  right:0;
+  width:50%;
+  animation: slide 0.7s;
+}
+
+.close {
+  position: absolute;
+  padding: 1rem;
+  right: 4px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+  z-index: 100;
+}
+
+.close:hover,
+.close:focus {
+  cursor: pointer;
+}
+
+.button-style{
+  bottom: 0;
+  right: 0;
+  border:none;
+  border-bottom: 2px solid var(--sidecolor);
+  outline:none;
+  padding: 2px 6px;
+  transition: border-radius 0.4s;
+}
+
+.button-style:hover{
+  cursor: pointer;
+  border-radius: 2rem;
+}
+
+.button-style:focus{
+  cursor: pointer;
+  border-bottom: 2px solid var(--sidecolor);
+  border: none;
+}
+
+.card-body input{
+  padding-bottom: 0.4rem;
+  margin-bottom: 1rem;
+  border: none;
+  outline:none;
+  border-bottom: 1px solid rgba(255,255,255, 0);
+  background-color: rgba(255,255,255, 0.05);
+  transition: border-bottom 0.3s ease-in-out;
+}
+
+.card-body input:hover{
+  background-color: rgba(255,255,255, 0);
+  border-bottom: 1px solid rgba(255,255,255, 0.75);
+}
+
+.card-body input:focus{
+  background-color: rgba(255,255,255,0);
+  border-bottom: 1px solid rgba(255,255,255, 0.75);
+}
+
+.errorlist{
+  list-style-type: none;
+  color: #d9534f;
+}
+
+@keyframes slide {
+  from {width: 0%;}
+  to {width: 50%}
+}
+
+</style>
+
+{% block content %}
+{% endblock %}
+
+
+</html>

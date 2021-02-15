@@ -75,7 +75,7 @@ def register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
             wallet.user = user
-            
+
             if 'profile_pic' in request.FILES:
                 print('found it')
                 profile.profile_pic = request.FILES['profile_pic']

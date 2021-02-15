@@ -27,9 +27,12 @@
                   <p class = 'text-danger my-3'> {{message}} </p>
                 {% endfor %}
               </div>
-              <div>
-                <a class="mt-2 bg-light btn-light" href = '{% url "Astro:register" %}'>Register</a>
-                <button class="p-2 mt-2 bg-light" name = 'submit' value = 'login'>Login</button>
+              <div class = 'close-down'>
+                <a class="m-2 bg-light btn-light" href = '{% url "Astro:register" %}' style = 'cursor: pointer;'>Register</a>
+              </div>
+              <div class = 'close-down-right'>
+                <a class = 'text-dark' style = 'text-decoration: none; cursor:pointer;' href = '{% url "password_reset" %}'>Forgot Password</a>
+                <button class="p-2 mt-2 bg-light" name = 'submit' value = 'login' style = 'cursor: pointer;'>Login</button></br>
               </div>
             </div>
           </form>
