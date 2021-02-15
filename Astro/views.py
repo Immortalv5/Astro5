@@ -257,6 +257,6 @@ def resjson(request):
 ##################################################################################################
 
 @login_required
-def settings(request):
+def account_settings(request):
     if request.method == 'POST':
         user = request.user
