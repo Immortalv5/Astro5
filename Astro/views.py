@@ -182,10 +182,10 @@ def initiate_payment(request):
             amount = float(request.POST.get('amount'))
         except:
             messages.error(request, 'Add a Valid Amount')
-            return render(request, 'Payments/Wallet.html', context = context)
+            return render(request, 'payments/Wallet.html', context = context)
         if amount <= 0:
             messages.error(request, 'Add some money')
-            return render(request, 'Payments/Wallet.html', context = context)
+            return render(request, 'payments/Wallet.html', context = context)
         transaction = Transaction.objects.create(made_by=request.user, amount=amount)
         transaction.save()
         merchant_key = settings.PAYTM_SECRET_KEY
@@ -211,10 +211,10 @@ def initiate_payment(request):
         transaction.save()
 
         paytm_params['CHECKSUMHASH'] = checksum
-        return render(request, 'Payments/redirect.html', context=paytm_params)
+        return render(request, 'payments/redirect.html', context=paytm_params)
 
     context = {'username': user['username'].capitalize(), 'user': user, 'wallet': wallet, 'info': user_info}
-    return render(request, 'Payments/Wallet.html', context = context)
+    return render(request, 'payments/Wallet.html', context = context)
 
 @csrf_exempt
 def callback(request):
@@ -241,12 +241,13 @@ def callback(request):
             received_data['WALLET_AMOUNT'] = wallet.current_balance
         else:
             received_data['message'] = "Checksum Mismatched"
-            return render(request, 'Payments/cancelled.html', context=received_data)
-        return render(request, 'Payments/callback.html', context=received_data)
+            return render(request, 'payments/cancelled.html', context=received_data)
+        return render(request, 'payments/callback.html', context=received_data)
 
 ##################################################################################################
 # Click to Call Requirement
 ##################################################################################################
+
 @login_required
 def resjson(request):
     with open('res/iml.json') as f:
