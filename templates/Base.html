@@ -10,27 +10,6 @@
     <link rel="stylesheet" href="{% static 'css/index.css'%}"/>
     <link rel="stylesheet" href="{% static 'css/login.css'%}"/>
     <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
-    <script>
-    function setCookie(cname, cvalue, exdays) {
-      var date = new Date();
-      date.setTime(date.getTime() + (exdays*24*60*60*1000));
-      var expires = "expires="+ date.toUTCString();
-      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-      console.log(document.cookie);
-    }
-    function openMenu(){
-      document.querySelector(".menu").style.width = "250px";
-      document.querySelector(".menu").style.visibility = "visible";
-      document.querySelector('.move').style.left = "250px";
-      document.querySelector('.leftmove').style.right = "250px";
-    }
-    function closeMenu(){
-    document.querySelector(".menu").style.width = "0px";
-    document.querySelector(".menu").style.visibility = "hidden";
-    document.querySelector('.move').style.left = "0px";
-    document.querySelector('.leftmove').style.right = "0px";
-    }
-    </script>
   </head>
   <body>
     <nav class="navbar masthead nav-masthead bgg text-light move">
@@ -46,14 +25,27 @@
         {% else %}
           <a class="nav-link mr-5" href = "{% url 'Astro:user_login' %}">Login</a>
         {% endif %}
-
       </div>
     </nav>
+    <div class="navbar-header" style="padding-top:10rem;">
+      <nav class="menu nav-masthead bgg text-light" style="padding-top:6.5rem;" id="menu">
+        <div>
+          <a class="nav-link" href="{% url 'initiate_payment' %}">Wallet</a>
+          <a class="nav-link" href="{% url 'index' %}">Report</a>
+          <a class="nav-link" href="{% url 'index' %}">Blog</a>
+          <a class="nav-link" href="{% url 'index' %}">Language</a>
+          <a class="nav-link" href="{% url 'account_settings' %}">Settings</a>
+        </div>
+      </nav>
+    </div>
     {% block body_block %}
     {% endblock %}
 
-<script>
-  document.querySelector("#open_menu").addEventListener('click', openMenu);
-  document.querySelector("#main").addEventListener('click', closeMenu);
-  </script>
+    <footer class="mastfoot">
+      <div class="footer_social">
+        <a class="fa fa-registered" href='{% url "Astro:astrologer_registration" %}'></a>
+      </div>
+    </footer>
+  </body>
+<script src = '{% static "js/menu_actions.js" %}'></script>
 </html>

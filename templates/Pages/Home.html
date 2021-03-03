@@ -1,18 +1,7 @@
-{% extends 'Astrology.html' %}
+{% extends 'Pages/Astrology.html' %}
 {% load static %}
 {% block body_block %}
 
-<div class="navbar-header" style="padding-top:10rem;">
-  <nav class="menu nav-masthead bgg text-light" style="padding-top:6.5rem;" id="menu">
-    <div>
-      <a class="nav-link" href="{% url 'initiate_payment' %}">Wallet</a>
-      <a class="nav-link" href="{% url 'index' %}">Report</a>
-      <a class="nav-link" href="{% url 'index' %}">Blog</a>
-      <a class="nav-link" href="{% url 'index' %}">Language</a>
-      <a class="nav-link" href="{% url 'index' %}">Settings</a>
-    </div>
-  </nav>
-</div>
 <div class="containers" id="main">
   <div class="row bg-light">
     <div class="col-12">
@@ -117,12 +106,4 @@
   </div>
 </div>
 </div>
-</body>
-
-<footer class="mastfoot">
-  <div class="footer_social">
-    <a class="fa fa-registered" href='{% url "Astro:astrologer_registration" %}'></a>
-  </div>
-</footer>
-
 {% endblock %}

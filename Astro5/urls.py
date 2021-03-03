@@ -36,7 +36,9 @@ urlpatterns = [
     url(r'^Astro/',include('Astro.urls')),
     url(r'^wallet/$', views.initiate_payment, name = 'initiate_payment'),
     url(r'^callback/$', views.callback, name = 'callback'),
-    url(r'^account/', include('django.contrib.auth.urls'))
+    url(r'^account/', include('django.contrib.auth.urls')),
+    url(r'^settings/$', views.account_settings, name = 'account_settings'),
+    #url(r'^settings/$', views.AddCommentView.as_view(), name = 'account_settings'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

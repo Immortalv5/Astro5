@@ -1,0 +1,48 @@
+{% load static %}
+
+<html>
+  <head>
+    <title> Sidha </title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/index.css'%}"/>
+    <link rel="stylesheet" href="{% static 'css/login.css'%}"/>
+    <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
+  </head>
+  <body>
+    <nav class="navbar masthead nav-masthead bgg text-light move">
+      <div class="d-flex justify-content-start">
+        <a class="fa fa-bars text-light m-auto" id="open_menu"></a>
+        <a class="mb-3 title display-4">Astro</a>
+      </div>
+      <div class="d-flex justify-content-end leftmove">
+        <a class="nav-link" href="{% url 'index' %}">Home</a>
+        <a class="nav-link mr-5" href="{% url 'book' %}">Book</a>
+        {% if username %}
+          <a class="nav-link mr-5" href="{% url 'Astro:logout' %}">{{ username }}</a>
+        {% else %}
+          <a class="nav-link mr-5" href = "{% url 'Astro:user_login' %}">Login</a>
+        {% endif %}
+
+      </div>
+    </nav>
+    <div class="navbar-header">
+      <nav class="menu nav-masthead bgg text-light" style="padding-top:6.5rem;" id="menu">
+        <div>
+          <a class="nav-link" href="{% url 'initiate_payment'%}">Wallet</a>
+          <a class="nav-link" href="{% url 'book' %}">Report</a>
+          <a class="nav-link" href="{% url 'book' %}">Blog</a>
+          <a class="nav-link" href="{% url 'book' %}">Language</a>
+          <a class="nav-link" href="{% url 'account_settings' %}">Settings</a>
+        </div>
+      </nav>
+    </div>
+
+    
+    {% block body_block %}
+    {% endblock %}
+
+    <script src = '{% static "js/menu_actions.js" %}'
+
+</html>

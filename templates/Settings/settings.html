@@ -1,0 +1,180 @@
+{% load static %}
+
+<html>
+  <head>
+    <title> Sidha </title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/index.css'%}"/>
+    <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
+  <style>
+
+  /* Blog */
+
+     .masonry {
+        -webkit-column-count: 2;
+        -moz-column-count:2;
+        column-count: 2;
+        -webkit-column-gap: 1em;
+        -moz-column-gap: 1em;
+        column-gap: 1em;
+        padding: 0;
+      }
+
+      .masonry .post{
+        padding: 2rem;
+        display: inline-block;
+        -webkit-transition:1s ease all;
+        width: 100%;
+      }
+
+      /*
+
+      .masonry .post:hover{
+        transform: scale(1);
+        background-color: #333;
+      }
+
+      .masonry .post .content{
+        text-align: center;
+        display: none;
+      }
+
+      .masonry img{
+        display: inline-block;
+        -webkit-transition:1s ease all;
+        width: 100%;
+      }
+
+      .masonry img:hover{
+        opacity: 0.0;
+        z-index: -1;
+      }
+
+      .masonry .post:hover .content{
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+
+      */
+
+      @media only screen and (max-width: 1100px) {
+          .glowing{
+              font-size: 5vmin;
+          }
+
+          .masonry {
+              -moz-column-count: 1;
+              -webkit-column-count: 1;
+              column-count: 1;
+      }
+      }
+
+      @media only screen and (min-width: 1100px) /*and (max-width: 1500px)*/ {
+          .masonry {
+              -moz-column-count: 2;
+              -webkit-column-count: 2;
+              column-count: 2;
+          }
+      }
+
+      /* Blog Settings */
+
+      .card{
+        background-color: var(--bgcolor);
+        box-shadow:0px 0px 5px rgba(0,0,0, .25);
+      }
+
+      .card-header{
+        margin: 1rem 0 0 1rem;
+        background-color: rgb(0,0,0,0);
+        border-bottom: 0px;
+      }
+
+      .card-body{
+        margin-left: 1rem;
+      }
+
+      /* Input */
+
+
+      .input-value{
+        padding-bottom: 0.4rem;
+        margin-bottom: 1rem;
+        border: none;
+        outline:none;
+        border-bottom: 1px solid rgba(255,255,255, 0);
+        background-color: rgba(255,255,255, 0.05);
+        width:100%;
+        max-width: 300px;
+        transition: border-bottom 0.3s ease-in-out;
+      }
+
+      .input-value:hover,
+      .input-value:focus{
+        background-color: rgba(255,255,255, 0);
+        border-bottom: 1px solid rgba(255,255,255, 0.75);
+      }
+
+      .button-value{
+        bottom: 0;
+        right: 0;
+        border:none;
+        outline:none;
+        padding: 2px 6px;
+        transition: border-radius 0.4s;
+      }
+
+      .button-value:hover,
+      .button-value:focus{
+        border-radius: 4rem;
+        border: none;
+      }
+
+      .errorlist{
+        color: #d9534f;
+        list-style-type: none;
+        padding-left:0.7rem;
+        margin:0;
+      }
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar masthead nav-masthead bgg text-light move">
+      <div class="d-flex justify-content-start">
+        <a class="fa fa-bars text-light m-auto" id="open_menu"></a>
+        <a class="mb-3 title display-4">Astro</a>
+      </div>
+      <div class="d-flex justify-content-end leftmove">
+        <a class="nav-link" href="{% url 'index' %}">Home</a>
+        <a class="nav-link mr-5" href="{% url 'book' %}">Book</a>
+        {% if username %}
+          <a class="nav-link mr-5" href="{% url 'Astro:logout' %}">{{ username }}</a>
+        {% else %}
+          <a class="nav-link mr-5" href = "{% url 'Astro:user_login' %}">Login</a>
+        {% endif %}
+
+      </div>
+    </nav>
+    <div class="navbar-header" style="padding-top:8rem;">
+      <nav class="menu nav-masthead bgg text-light" style="padding-top:6.5rem;" id="menu">
+        <div>
+          <a class="nav-link" href="{% url 'initiate_payment'%}">Wallet</a>
+          <a class="nav-link" href="{% url 'book' %}">Report</a>
+          <a class="nav-link" href="{% url 'book' %}">Blog</a>
+          <a class="nav-link" href="{% url 'book' %}">Language</a>
+          <a class="nav-link" href="{% url 'account_settings' %}">Settings</a>
+        </div>
+      </nav>
+    </div>
+    {% block content %}
+    {% endblock %}
+  </body>
+<script src = '{% static "js/menu_actions.js" %}'></script>
+</html>

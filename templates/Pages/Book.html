@@ -1,0 +1,50 @@
+{% extends 'Pages/Astrology.html' %}
+{% load static %}
+{% block body_block %}
+
+  <div class="containers mx-auto row" id="main">
+    {% for astrologer in astrologers %}
+    {% if astrologer.approved %}
+    <div class="col-xl-4 col-lg-6 col-md-12">
+      <style type="text/css">.card p{
+        font-size: 1vmin;
+        margin: 0 0 2px 5px;
+      }
+      </style>
+      <div class="card" style="margin-bottom: 1.5rem; height: 200px; width: 275px">
+        <div class="icon">
+          <a class = 'fa fa-phone' style = 'font-size: 14px; margin-right:0 !important; padding:0;text-decoration:none;' onclick = 'start({{ astrologer.phone_number }})'></a>
+        </div>
+        <div class="icon-left">
+          {% if astrologer.profile_pic %}
+            <img class="p-2 user-photo" src="{{ astrologer.profile_pic.url }}" style = 'height: 60px; width: 60px'/>
+          {% else %}
+            <img class="p-2 user-photo" src="{% static 'img/icon.png' %}" style = 'height: 60px; width: 60px'/>
+          {% endif %}
+        </div>
+        <div class="icon-down">
+          <h5 class="pl-1 font-weight-bold" style="font-size: 1.5vmin;">{{ astrologer.name }}</h5>
+          <p>{{ astrologer.language }}</p>
+          <p class="mb-2">Exp: {{ astrologer.XP }} </p>
+        </div>
+        <div class="icon-down-right">
+          <p class="font-weight-bold">&#8377; {{astrologer.rate_per_min}} / min</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  <script src="https://konverz.vox-cpaas.in/js/jquery.min.js"></script>
+	<script src="https://konverz.vox-cpaas.in/js/bootstrap.min.js"></script>
+	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+	<script src="https://konverz.vox-cpaas.in/js/protobuf.min.js"></script>
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.154.0.min.js"></script>
+	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+	<script src="https://konverz.vox-cpaas.in/js/sha256.js"></script>
+	<script src="https://konverz.vox-cpaas.in/js/calmsdk-001.js"></script>
+	<script src="https://konverz.vox-cpaas.in/js/wrtc.js"></script>
+	<script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+  <script src="{% static 'js/call_to_customer.js' %}"></script>
+
+{% endblock %}

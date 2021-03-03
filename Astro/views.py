@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.contrib import messages
@@ -8,9 +8,10 @@ from django.contrib.sites.shortcuts import get_current_site
 from .models import Wallet, Transaction, UserProfileInfo, Astrologers
 #from payments.models import Transaction
 from django.contrib.auth.models import User
+from django.views.generic import TemplateView
 
 from django.views.decorators.csrf import csrf_exempt
-from .forms import CreateUserForm, UserProfileInfoForm, AstrologerProfileInfoForm
+from .forms import CreateUserForm, UserProfileInfoForm, AstrologerProfileInfoForm, ModifyUserForm, ModifyUserPasswordForm, ProfilePicForm
 from django.conf import settings
 from django.core.mail import EmailMessage
 #from paypal.standard.forms import PayPalPaymentsForm
@@ -32,14 +33,14 @@ from .utils import token_generator
 
 def index(request):
     if request.user:
-        return render(request, 'Home.html', {'username': request.user.username.capitalize()})
-    return render(request, 'Home.html')
+        return render(request, 'Pages/Home.html', {'username': request.user.username.capitalize()})
+    return render(request, 'Pages/Home.html')
 
 @login_required
 def book(request):
     usernumber = UserProfileInfo.objects.filter(user = request.user)
     astrologers = Astrologers.objects.all()
-    return render(request, 'Book.html', {'username': request.user.username.capitalize(), 'astrologers': astrologers, 'user_number': usernumber.values()[0], 'authkey': str(settings.AUTHKEY)})
+    return render(request, 'Pages/Book.html', {'username': request.user.username.capitalize(), 'astrologers': astrologers, 'user_number': usernumber.values()[0], 'authkey': str(settings.AUTHKEY)})
 
 ##################################################################################################
 # User Authentication
@@ -85,14 +86,14 @@ def register(request):
             return HttpResponseRedirect(reverse('Astro:user_login'))
         else:
             print(user_form.errors,':',profile_form.errors)
-            return render(request,'register.html',
+            return render(request,'User Account/register.html',
                                   {'user_form':user_form,
                                    'profile_form':profile_form,
                                    'registered':registered})
     else:
         user_form = CreateUserForm()
         profile_form = UserProfileInfoForm()
-    return render(request,'register.html',
+    return render(request,'User Account/register.html',
                           {'user_form':user_form,
                            'profile_form':profile_form,
                            'registered':registered})
@@ -114,7 +115,7 @@ def user_verification(request, uid64, token):
 
     except Exception as Exp:
         print(Exp)
-    return render(request, 'activation.html')
+    return render(request, 'User Account/activation.html')
 
 def user_login(request):
     if request.method == 'POST':
@@ -134,7 +135,7 @@ def user_login(request):
             messages.error(request, 'Either Username or Password is incorrect.')
             return HttpResponseRedirect(reverse('Astro:user_login'))
     else:
-        return render(request, 'login.html', {})
+        return render(request, 'User Account/login.html', {})
 
 @login_required
 def user_logout(request):
@@ -162,7 +163,7 @@ def astrologer_registration(request):
                                   {'profile_form':profile_form})
     else:
         profile_form = AstrologerProfileInfoForm()
-    return render(request,'astrologer_register.html',
+    return render(request,'Astrologer Profile/astrologer_register.html',
                           {'profile_form':profile_form})
 
 ##################################################################################################
@@ -181,10 +182,10 @@ def initiate_payment(request):
             amount = float(request.POST.get('amount'))
         except:
             messages.error(request, 'Add a Valid Amount')
-            return render(request, 'Wallet.html', context = context)
+            return render(request, 'Payments/Wallet.html', context = context)
         if amount <= 0:
             messages.error(request, 'Add some money')
-            return render(request, 'Wallet.html', context = context)
+            return render(request, 'Payments/Wallet.html', context = context)
         transaction = Transaction.objects.create(made_by=request.user, amount=amount)
         transaction.save()
         merchant_key = settings.PAYTM_SECRET_KEY
@@ -210,10 +211,10 @@ def initiate_payment(request):
         transaction.save()
 
         paytm_params['CHECKSUMHASH'] = checksum
-        return render(request, 'redirect.html', context=paytm_params)
+        return render(request, 'Payments/redirect.html', context=paytm_params)
 
     context = {'username': user['username'].capitalize(), 'user': user, 'wallet': wallet, 'info': user_info}
-    return render(request, 'Wallet.html', context = context)
+    return render(request, 'Payments/Wallet.html', context = context)
 
 @csrf_exempt
 def callback(request):
@@ -240,8 +241,8 @@ def callback(request):
             received_data['WALLET_AMOUNT'] = wallet.current_balance
         else:
             received_data['message'] = "Checksum Mismatched"
-            return render(request, 'payments/cancelled.html', context=received_data)
-        return render(request, 'payments/callback.html', context=received_data)
+            return render(request, 'Payments/cancelled.html', context=received_data)
+        return render(request, 'Payments/callback.html', context=received_data)
 
 ##################################################################################################
 # Click to Call Requirement
@@ -258,5 +259,29 @@ def resjson(request):
 
 @login_required
 def account_settings(request):
-    if request.method == 'POST':
-        user = request.user
+    user_form = ModifyUserForm()
+    password_form = ModifyUserPasswordForm(request.user)
+    profile_form = ProfilePicForm()
+    if request.POST.get('account_submit'):
+        user_form = ModifyUserForm(request.POST, user = request.user)
+        if user_form.is_valid():
+            changes = user_form.save(False)
+            changes.save()
+            messages.success(request, 'Name Changed.')
+            return HttpResponseRedirect(reverse('account_settings'))
+    if request.POST.get('password_submit'):
+        password_form = ModifyUserPasswordForm(request.user, request.POST)
+        if password_form.is_valid():
+            user = password_form.save(False)
+            update_session_auth_hash(request, user)
+            return HttpResponseRedirect(reverse('account_settings'))
+    if request.POST.get('profile_pic_submit'):
+        profile_form = ProfilePicForm(request.POST, request.FILES)
+        if profile_form.is_valid():
+            profile = UserProfileInfo.objects.get(user = request.user)
+            if 'profile_pic' in request.FILES:
+                profile.change_profile_pic(request.FILES['profile_pic'])
+            else:
+                profile.change_profile_pic(None)
+            return HttpResponseRedirect(reverse('account_settings'))
+    return render(request, 'Settings/user_settings.html',  {'username': request.user.username.capitalize(), 'user_form': user_form , 'password_form': password_form, 'profile_form': profile_form})

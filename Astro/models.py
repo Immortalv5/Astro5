@@ -35,6 +35,13 @@ class UserProfileInfo(models.Model):
             )
         ]
 
+    def change_profile_pic(self, pic):
+        """Changes Profile Picture
+        """
+        self.profile_pic.delete(save = True)
+        self.profile_pic = pic
+        self.save()
+
 class Wallet(models.Model):
     # We should reference to the AUTH_USER_MODEL so that
     # when this module is used and a different User is used,

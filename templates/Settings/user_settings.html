@@ -1,0 +1,102 @@
+{% extends 'settings/settings.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="containers" id="main"><!--
+      <div class="col-12" style = 'padding-left:0; padding-right:0;'>
+        <h1 class="card-title display-1 mb-5 text-dark py-3" style="text-align: center;"></h1>
+      </div>
+      <div class = 'col-3 bg-light' style = 'padding-left:0; padding-right:0; max-width:200px;'>
+        <div class="navbar-header">
+          <nav class="nav-masthead text-dark bgg py-3">
+            <div>
+              <a class="nav-link" href="{% url 'account_settings'%}">Wallet</a>
+              <a class="nav-link" href="{% url 'book' %}">Report</a>
+              <a class="nav-link" href="{% url 'book' %}">Blog</a>
+              <a class="nav-link" href="{% url 'book' %}">Language</a>
+              <a class="nav-link" href="{% url 'account_settings' %}">Settings</a>
+            </div>
+          </nav>
+        </div>
+      </div> -->
+  <div class = 'masonry'>
+    <div class = 'post'>
+      <div class = 'card'>
+        <div class = 'card-header'>
+          <h3> Account Settings </h3>
+        </div>
+        <div class = 'card-body'>
+          <form action="" method="POST" class = 'inside'>
+            {% csrf_token %}
+            {{ user_form.first_name }}
+            {{ user_form.last_name }}
+            <div>
+              {% for message in messages %}
+                <p class = 'text-success my-3'> {{message}} </p>
+              {% endfor %}
+            </div>
+            <div style="text-align:right; margin-right: 1rem;">
+              <button class="p-2 mt-4 bg-light button-value" name = 'account_submit' value = 'register' style = 'cursor: pointer;'>Change</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class = 'post'>
+      <div class = 'card'>
+        <div class = 'card-header'>
+          <h3> Password Settings </h3>
+        </div>
+        <div class = 'card-body'>
+          <form action="" method="POST" class = 'inside'>
+            {% csrf_token %}
+            {{ password_form.old_password }}
+            {{ password_form.old_password.errors }}
+            {{ password_form.new_password1 }}
+            {{ password_form.new_password1.errors }}
+            {{ password_form.new_password2 }}
+            {{ password_form.new_password2.errors }}
+            <div>
+              {% for message in messages.success %}
+                <p class = 'text-danger my-3'> {{message}} </p>
+              {% endfor %}
+            </div>
+            <div style="text-align:right; margin-right: 1rem;">
+              <button class="p-2 mt-4 bg-light button-value" name = 'password_submit' value = 'register' style = 'cursor: pointer;'>Change</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class = 'post'>
+      <div class = 'card'>
+        <div class = 'card-header'>
+          <h3> Profile Picture Change </h3>
+        </div>
+        <div class = 'card-body'>
+          <form action="" method="POST" class = 'inside' enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ profile_form.profile_pic }}
+            {{ profile_form.profile_pic.errors }}
+            <div>
+              {% for message in messages.success %}
+                <p class = 'text-danger my-3'> {{message}} </p>
+              {% endfor %}
+            </div>
+            <div style="text-align:right; margin-right: 1rem;">
+              <button class="p-2 mt-4 bg-light button-value" name = 'profile_pic_submit' value = 'register' style = 'cursor: pointer;'>Change</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var form_fields = document.getElementsByTagName('input');
+form_fields[1].placeholder = 'First Name';
+form_fields[2].placeholder = 'Last Name';
+form_fields[4].placeholder = 'Password';
+</script>
+{% endblock %}
