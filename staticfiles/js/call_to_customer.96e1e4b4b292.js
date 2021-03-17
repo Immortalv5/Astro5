@@ -33,16 +33,16 @@ function handleCallFromIML(msgType, resp) {
     case "OFFER":     /* incoming offer from remote party */
       break;
     case "RINGING":   /* ringing */
-      console.log("calling");
       //document.getElementById("startbtn").innerHTML =  'Call';
       break;
     case "ANSWERED":  /* call answer */
-      console.log("answered");
-      //setTimeout(() => { console.log('Done'); endCall();}, 180000);
+      setTimeout(() => { console.log('Done'); endCall();}, 180000);
       // document.getElementById("startbtn").innerHTML =  'End Call';
       break;
     case "END":       /* call end */
       console.log("ending call");
+      setTimeout(() => { console.log('Done'); endCall();}, 100);
+      console.log('call ended');
       //document.getElementById("startbtn").innerHTML = 'Call';
       break;
   }
@@ -69,7 +69,7 @@ function endCall() {
 
 /* Initiate outbound call (call remote party) */
 function start(destnum) {
-  destnum = '+' + destnum
+  destnum = '+91' + str(destnum)
   console.log("destination no is:" + destnum);
   if (is_started == false) {
     console.log('done');

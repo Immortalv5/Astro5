@@ -1,50 +1,95 @@
-{% extends 'Pages/Astrology.html' %}
 {% load static %}
-{% block body_block %}
 
-  <div class="containers mx-auto row" id="main">
-    {% for astrologer in astrologers %}
-    {% if astrologer.approved %}
-    <div class="col-xl-4 col-lg-6 col-md-12">
-      <style type="text/css">.card p{
-        font-size: 1vmin;
-        margin: 0 0 2px 5px;
-      }
-      </style>
-      <div class="card" style="margin-bottom: 1.5rem; height: 200px; width: 275px">
-        <div class="icon">
-          <a class = 'fa fa-phone' style = 'font-size: 14px; margin-right:0 !important; padding:0;text-decoration:none;' onclick = 'start({{ astrologer.phone_number }})'></a>
+<html>
+  <head>
+    <title> Sidha </title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/astrology.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/index.css'%}"/>
+    <link rel="icon" href="{% static 'img/icon.png' %}" type="image/png"/>
+    <script src="https://konverz.vox-cpaas.in/js/jquery.min.js"></script>
+    <script src="https://konverz.vox-cpaas.in/js/bootstrap.min.js"></script>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="https://konverz.vox-cpaas.in/js/protobuf.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.154.0.min.js"></script>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+    <script src="https://konverz.vox-cpaas.in/js/sha256.js"></script>
+    <script src="https://konverz.vox-cpaas.in/js/calmsdk-001.js"></script>
+    <script src="https://konverz.vox-cpaas.in/js/wrtc.js"></script>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="{% static 'js/call_to_customer.js' %}"></script>
+  </head>
+  <body onload=pageload()>
+    <nav class="navbar masthead nav-masthead bgg text-light move">
+      <div class="d-flex justify-content-start">
+        <a class="fa fa-bars text-light m-auto" id="open_menu"></a>
+        <a class="mb-3 title display-4">Astro</a>
+      </div>
+      <div class="d-flex justify-content-end leftmove">
+        <a class="nav-link" href="{% url 'index' %}">Home</a>
+        <a class="nav-link mr-5" href="{% url 'book' %}">Book</a>
+        {% if username %}
+          <a class="nav-link mr-5" href="{% url 'Astro:logout' %}">{{ username }}</a>
+        {% else %}
+          <a class="nav-link mr-5" href = "{% url 'Astro:user_login' %}">Login</a>
+        {% endif %}
+
+      </div>
+    </nav>
+    <div class="navbar-header" style="padding-top:10rem;">
+      <nav class="menu nav-masthead bgg text-light" style="padding-top:6.5rem;" id="menu">
+        <div>
+          <a class="nav-link" href="{% url 'initiate_payment' %}">Wallet</a>
+          <a class="nav-link" href="{% url 'index' %}">Report</a>
+          <a class="nav-link" href="{% url 'index' %}">Blog</a>
+          <a class="nav-link" href="{% url 'index' %}">Language</a>
+          <a class="nav-link" href="{% url 'account_settings' %}">Settings</a>
         </div>
-        <div class="icon-left">
-          {% if astrologer.profile_pic %}
-            <img class="p-2 user-photo" src="{{ astrologer.profile_pic.url }}" style = 'height: 60px; width: 60px'/>
-          {% else %}
-            <img class="p-2 user-photo" src="{% static 'img/icon.png' %}" style = 'height: 60px; width: 60px'/>
-          {% endif %}
-        </div>
-        <div class="icon-down">
-          <h5 class="pl-1 font-weight-bold" style="font-size: 1.5vmin;">{{ astrologer.name }}</h5>
-          <p>{{ astrologer.language }}</p>
-          <p class="mb-2">Exp: {{ astrologer.XP }} </p>
-        </div>
-        <div class="icon-down-right">
-          <p class="font-weight-bold">&#8377; {{astrologer.rate_per_min}} / min</p>
+      </nav>
+    </div>
+    <div class="containers mx-auto row" id="main">
+      {% for astrologer in astrologers %}
+      {% if astrologer.approved %}
+      <div class="col-xl-4 col-lg-6 col-md-12">
+        <style type="text/css">.card p{
+          font-size: 1vmin;
+          margin: 0 0 2px 5px;
+        }
+        </style>
+        <div class="card" style="margin-bottom: 1.5rem; height: 200px; width: 275px">
+          <div class="icon">
+            <button class = 'fa fa-phone btn btn-primary px-1' style = 'font-size: 14px; margin-right:0 !important; padding:0;text-decoration:none;' onclick = 'start({{ astrologer.phone_number }})' id = 'startbtn'></button>
+          </div>
+          <div class="icon-left">
+            {% if astrologer.profile_pic %}
+              <img class="p-2 user-photo" src="{{ astrologer.profile_pic.url }}" style = 'height: 60px; width: 60px'/>
+            {% else %}
+              <img class="p-2 user-photo" src="{% static 'img/icon.png' %}" style = 'height: 60px; width: 60px'/>
+            {% endif %}
+          </div>
+          <div class="icon-down">
+            <h5 class="pl-1 font-weight-bold" style="font-size: 1.5vmin;">{{ astrologer.name }}</h5>
+            <p>{{ astrologer.language }}</p>
+            <p class="mb-2">Exp: {{ astrologer.XP }} </p>
+          </div>
+          <div class="icon-down-right">
+            <p class="font-weight-bold">&#8377; {{astrologer.rate_per_min}} / min</p>
+          </div>
+          <video id="localVideo" autoplay muted style="display: none;"></video>
+          <video id="remoteVideo" autoplay width="200px" height="180px" style="display: none;"></video>
         </div>
       </div>
+      {% endif %}
+      {% endfor %}
     </div>
-    {% endif %}
-    {% endfor %}
-  </div>
-  <script src="https://konverz.vox-cpaas.in/js/jquery.min.js"></script>
-	<script src="https://konverz.vox-cpaas.in/js/bootstrap.min.js"></script>
-	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-	<script src="https://konverz.vox-cpaas.in/js/protobuf.min.js"></script>
-	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.154.0.min.js"></script>
-	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
-	<script src="https://konverz.vox-cpaas.in/js/sha256.js"></script>
-	<script src="https://konverz.vox-cpaas.in/js/calmsdk-001.js"></script>
-	<script src="https://konverz.vox-cpaas.in/js/wrtc.js"></script>
-	<script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
-  <script src="{% static 'js/call_to_customer.js' %}"></script>
+    <footer class="mastfoot">
+      <div class="footer_social">
+        <a class="fa fa-registered" href='{% url "Astro:astrologer_registration" %}'></a>
+      </div>
+    </footer>
+  </body>
 
-{% endblock %}
+<script src = '{% static "js/menu_actions.js" %}'></script>
+</html>

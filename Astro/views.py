@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from .models import Wallet, Transaction, UserProfileInfo, Astrologers
 #from payments.models import Transaction
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.views.generic import TemplateView
 
 from django.views.decorators.csrf import csrf_exempt
@@ -57,6 +57,9 @@ def register(request):
             user.set_password(user.password)
             user.is_active = False
             user.save()
+
+            customers = Group.objects.get(name = 'customers')
+            user.groups.add(customers)
 
             uid64 = urlsafe_base64_encode(force_bytes(user.pk))
             domain = get_current_site(request).domain

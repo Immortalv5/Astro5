@@ -43,6 +43,7 @@ function handleCallFromIML(msgType, resp) {
       break;
     case "END":       /* call end */
       console.log("ending call");
+      endCall();
       //document.getElementById("startbtn").innerHTML = 'Call';
       break;
   }
@@ -69,7 +70,7 @@ function endCall() {
 
 /* Initiate outbound call (call remote party) */
 function start(destnum) {
-  destnum = '+' + destnum
+  destnum = '+91' + destnum
   console.log("destination no is:" + destnum);
   if (is_started == false) {
     console.log('done');

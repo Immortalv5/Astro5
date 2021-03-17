@@ -69,7 +69,6 @@ function endCall() {
 
 /* Initiate outbound call (call remote party) */
 function start(destnum) {
-  destnum = '+' + destnum
   console.log("destination no is:" + destnum);
   if (is_started == false) {
     console.log('done');

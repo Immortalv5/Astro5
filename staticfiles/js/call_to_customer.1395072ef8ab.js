@@ -17,7 +17,7 @@ function pageload() { // Initializes the sdk and logs in the user.
       CS.login("Amar", "amarsaiteja", function (err, resp) {                   // <----------- Update the user credentials here-----------
         if (err == 200) {
           console.log("Login succesful");
-          //document.getElementById("startbtn").disabled = false;
+          document.getElementById("startbtn").disabled = false;
         }
         else {
           console.log("login failed with response code " + err + " reason " + resp);
@@ -33,17 +33,15 @@ function handleCallFromIML(msgType, resp) {
     case "OFFER":     /* incoming offer from remote party */
       break;
     case "RINGING":   /* ringing */
-      console.log("calling");
       //document.getElementById("startbtn").innerHTML =  'Call';
       break;
     case "ANSWERED":  /* call answer */
-      console.log("answered");
-      //setTimeout(() => { console.log('Done'); endCall();}, 180000);
+      setTimeout(() => { console.log('Done'); endCall();}, 180000);
       // document.getElementById("startbtn").innerHTML =  'End Call';
       break;
     case "END":       /* call end */
-      console.log("ending call");
-      //document.getElementById("startbtn").innerHTML = 'Call';
+      console.log("call end");
+      document.getElementById("startbtn").innerHTML = 'Call';
       break;
   }
 }
@@ -69,7 +67,7 @@ function endCall() {
 
 /* Initiate outbound call (call remote party) */
 function start(destnum) {
-  destnum = '+' + destnum
+  //destnum = '+' + destnum
   console.log("destination no is:" + destnum);
   if (is_started == false) {
     console.log('done');
@@ -78,7 +76,7 @@ function start(destnum) {
     //document.getElementById("startbtn").innerHTML =  'End call';
   } else {
     /* End ongoing call */
-    //document.getElementById("startbtn").innerHTML = 'Call';
+    document.getElementById("startbtn").innerHTML = 'Call';
     is_started = false;
     CS.call.end(callid, "Bye", function (ret, resp) {
       if (ret == 200)
@@ -87,4 +85,60 @@ function start(destnum) {
     });
 
   }
+}
+
+function call_to(phone_number, user_number){
+
+
+
+  //CS.initialize({appId:"mmOwzQUOqkEpmDZdDTDm"}, function callback(ret, resp) {if (ret == 200) { console.log("SDK "+CS.version+" initialize "); }});
+//
+//   var data = {
+//     projectid :  'pid_7a183e41_bcff_4aa0_80a2_6f0e9dd7c174',
+//     authtoken : '5d2c949f_3006_4109_a407_bbc76946dca2',
+//     user :  'Amar',
+//     pass :  'amar',
+//    // recipient : 'Suvi' ,
+//    // message :  'Hi',
+//    // msgType :  1,
+//    // ct :  'text/plain',
+//   }
+//
+//
+//
+//   var proxyURL = 'https://c3d67f65a38b.ngrok.io'//'https://astro5.herokuapp.com';
+//   var requestURL = "https://proxy.vox-cpaas.com/api/user";
+//
+//   var request = new XMLHttpRequest();
+//   request.open('POST', requestURL, true);
+//   request.setRequestHeader("Content-type", "application/json");
+//   //request.setRequestHeader('charser', 'UTF-8')
+//   request.setRequestHeader('Access-Control-Allow-Origin', proxyURL);
+//   request.responseType = 'json';
+//
+//   request.onload = function() {
+//     var data = request.response;
+//     console.log(data);
+//     //document.querySelector('pre').textContent = JSON.stringify(data, null, 2);
+//   }
+//
+//   request.send('authtoken=5d2c949f_3006_4109_a407_bbc76946dca2&projectid=pid_7a183e41_bcff_4aa0_80a2_6f0e9dd7c174&username=sai&password=amar');
+// // And the ajax request I am making with it:
+// // $.ajax({
+// //   type: "POST",
+// //   url: 'https://api.vox-cpaas.com/user',
+// //   data: data,
+// //   headers: {
+// //     "Access-Control-Allow-Origin": 'https://7e69bc60b726.ngrok.io',
+// //   },
+// // });
+//
+//   console.log('astrologers:',phone_number);
+//   console.log('user:',user_number)
+//
+//   send_data(data)
+}
+
+function send_data(data){
+  console.log(data)
 }

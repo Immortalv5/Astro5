@@ -74,7 +74,7 @@
 					break;
 				case "END":       /* call end */
 					console.log("call end");
-					document.getElementById("startbtn").innerHTML = 'Call';
+					//document.getElementById("startbtn").innerHTML = 'Call';
 					break;
 			}
 		}
@@ -123,10 +123,10 @@
 </head>
 
 <body onload=pageload()>
-	<button type="button" onclick="start('+919912698891')" id="startbtn" value="Call" class="btn btn-primary pl-6 pr-6"
-		disabled>Call to +919912698891</button>
+	<button type="button" onclick="start('+917306323999')" id="startbtn" value="Call" class="btn btn-primary pl-6 pr-6"
+		disabled>Call to +917306323999</button>
 	<!--pass the destination number as argument in start() function-->
-	<!-- <video id="localVideo" autoplay muted style="display: none;"></video>
-	<video id="remoteVideo" autoplay width="200px" height="180px" style="display: none;"></video> -->
+	<video id="localVideo" autoplay muted style="display: none;"></video>
+	<video id="remoteVideo" autoplay width="200px" height="180px" style="display: none;"></video>
 	<input type="button" onclick="endCall()" value="End call"></input><br />
 </body>
